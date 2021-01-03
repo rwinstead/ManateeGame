@@ -9,13 +9,32 @@ public class Manatee_Movement : MonoBehaviour
     public Transform cam;
     public float speed = 6f;
 
+    public float jumpHeight = 3f;
+
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
+
+    //Gravity
+    Vector3 velocity;
+    public float gravity = -9.81f;
+
+    public Transform groundCheck;
+    public LayerMask groundMask;
+    public float groundDistance = 0.4f;
+
+    bool isGrounded;
    
 
     // Update is called once per frame
     void Update()
     {
+
+    isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+    if (isGrounded && velocity.y <0)
+        {
+            velocity.y = -2f;
+        }
 
     float horizontal = Input.GetAxisRaw("Horizontal");
     float vertical = Input.GetAxisRaw("Vertical");
@@ -32,6 +51,21 @@ public class Manatee_Movement : MonoBehaviour
 
         controller.Move(moveDir.normalized * speed * Time.deltaTime);
     }
+
+
+        //gravity section
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+        //jump section
+
+        if(Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+
+
 
     }
 }
