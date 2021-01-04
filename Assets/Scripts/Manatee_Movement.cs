@@ -23,7 +23,15 @@ public class Manatee_Movement : MonoBehaviour
     public float groundDistance = 0.4f;
 
     bool isGrounded;
-   
+
+    public Animator anim;
+
+
+    private void Start()
+    {
+        //anim = this.gameObject.GetComponent<Animator>();
+        //Debug.Log(anim);
+    }
 
     // Update is called once per frame
     void Update()
@@ -40,6 +48,8 @@ public class Manatee_Movement : MonoBehaviour
     float vertical = Input.GetAxisRaw("Vertical");
 
     Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        Debug.Log(direction.x);
 
     if (direction.magnitude >= .01f)
     {
@@ -61,10 +71,34 @@ public class Manatee_Movement : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
+
+            if (direction.x < 0)
+            {
+                anim.SetTrigger("JumpLeft");
+            }
+
+            if (direction.x > 0)
+            {
+                anim.SetTrigger("JumpRight");
+            }
+
+            if(direction.z > 0 && direction.x == 0)
+            {
+                anim.SetTrigger("FlipForward");
+            }
+
+            if (direction.z < 0 && direction.x == 0)
+            {
+                anim.SetTrigger("FlipForward");
+            }
+
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
         }
 
 
+
+        
 
 
     }
