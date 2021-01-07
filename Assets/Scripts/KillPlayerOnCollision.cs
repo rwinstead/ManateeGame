@@ -7,11 +7,11 @@ public class KillPlayerOnCollision : MonoBehaviour
 
     public Transform startPosition;
     public GameObject Player;
-    CharacterController cc;
+    Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        cc = Player.GetComponent<CharacterController>();
+        rb = Player.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -28,9 +28,9 @@ public class KillPlayerOnCollision : MonoBehaviour
         {
             Debug.Log(Player.transform.position);
             Debug.Log(startPosition.position);
-            cc.enabled = false;
-            Player.transform.position = startPosition.position;
-            cc.enabled = true;
+         
+            rb.position = startPosition.position;
+           
         }
 
 
