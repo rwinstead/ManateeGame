@@ -6,7 +6,7 @@ public class BoatMove : MonoBehaviour
 {
 
     GameObject boat;
-    public CharacterController manatee;
+    public Rigidbody manatee;
     bool movingBoat;
     bool movingManatee;
     // Start is called before the first frame update
@@ -21,15 +21,15 @@ public class BoatMove : MonoBehaviour
     void Update()
     {
 
-        if (movingBoat)
-        {
-            boat.transform.Translate(Vector3.back * Time.deltaTime * 5f );
-        }
+        //if (movingBoat)
+        //{
+        //    boat.transform.Translate(Vector3.back * Time.deltaTime * 5f );
+        //}
 
-        if (movingManatee)
-        {
-            manatee.Move(Vector3.right * 5f *Time.deltaTime);
-        }
+        //if (movingManatee)
+        //{
+        //    manatee.MovePosition(transform.position + (Vector3.forward * 5f *Time.deltaTime));
+        //}
 
 
     }
@@ -46,6 +46,21 @@ public class BoatMove : MonoBehaviour
     {
         movingManatee = false;
         movingBoat = false;
+    }
+
+
+
+    void FixedUpdate()
+    {
+        if (movingManatee)
+        {
+            manatee.MovePosition(manatee.position + (Vector3.right * 5f * Time.deltaTime));
+        }
+
+        if (movingBoat)
+        {
+            boat.transform.Translate(Vector3.back * Time.deltaTime * 5f);
+        }
     }
 
 
