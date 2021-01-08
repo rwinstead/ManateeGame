@@ -54,7 +54,7 @@ public class BallMove : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-
+        Debug.Log(direction);
         //Debug.Log(direction.magnitude);
 
 

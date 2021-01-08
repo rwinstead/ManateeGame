@@ -18,7 +18,7 @@ public class rotateManateeInside : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -29,7 +29,7 @@ public class rotateManateeInside : MonoBehaviour
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(-90, angle, -90f);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
         }
 
