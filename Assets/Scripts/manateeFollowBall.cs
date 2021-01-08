@@ -15,6 +15,6 @@ public class manateeFollowBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targ.transform.position, 1f);
+        transform.position = Vector3.MoveTowards(transform.position, targ.transform.position, 10f);
     }
 }

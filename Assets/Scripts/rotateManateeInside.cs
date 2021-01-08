@@ -18,7 +18,7 @@ public class rotateManateeInside : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         //transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -33,10 +33,10 @@ public class rotateManateeInside : MonoBehaviour
 
         }
 
-        else
-        {
-            transform.rotation = transform.rotation;
-        }
+        //else
+        //{
+        //    transform.rotation = transform.rotation;
+        //}
 
 
         

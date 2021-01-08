@@ -18,6 +18,7 @@ public class BallMove : MonoBehaviour
 
     public Transform groundCheck;
     public LayerMask groundMask;
+
     public float groundDistance = 0.4f;
 
     public bool isGrounded;
@@ -29,20 +30,17 @@ public class BallMove : MonoBehaviour
     public float jumpForce = 60.0f;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
-    private object onCollsionExit;
 
     private void Start()
     {
         
-        //anim = this.gameObject.GetComponent<Animator>();
-        //Debug.Log(anim);
     }
 
     // Update is called once per frame
     void Update()
     {
         jump = Vector3.up;
-        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
         {
@@ -54,15 +52,8 @@ public class BallMove : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        Debug.Log(direction);
-        //Debug.Log(direction.magnitude);
+        //Debug.Log(direction);
 
-
-        //gravity section
-        //velocity.y += gravity * Time.deltaTime;
-        //rb.MovePosition(transform.position + (velocity * Time.deltaTime));
-
-        //jump section
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -87,9 +78,8 @@ public class BallMove : MonoBehaviour
                 anim.SetTrigger("FlipForward");
             }
 
-            //velocity.y = Mathf.Sqrt(jumpHeight * -2f);
+            
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-            //velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpForce);
         }
 
         if (rb.velocity.y < 0)
@@ -109,37 +99,22 @@ public class BallMove : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        //Vector3 cforward = cam.transform.forward;
-        //Vector3 cright = cam.transform.right;
-        //cforward.y = 0f;
-        //cright.y = 0f;
-        //cforward.Normalize();
-        //cright.Normalize();
-
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-        //Vector3 movementX = (cam.forward.normalized * horizontal);
-        //Vector3 movementZ = (cam.right.normalized * vertical);
-        //Vector3 direction = movementX + movementZ;
-
-        //Debug.Log(direction.magnitude);
 
         if (direction.magnitude >= .01f)
         {
 
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            //rb.MoveRotation(Quaternion.Euler(0f, angle, 0f));
+            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-
-            //transform.rotation *= Quaternion.Euler(Input.acceleration.y / 6, -Input.acceleration.x / 3, 0);
-
-
-
             rb.AddForce(moveDir.normalized * speed);
-            //controller.Move(moveDir.normalized * speed * Time.deltaTime);
+
         }
     }
 
+    // THIS SECTION CHECKS FOR THE GROUND VIA COLLISION *****************************
+    /*
     void OnCollisionStay(Collision collision)
     {
 
@@ -163,7 +138,7 @@ public class BallMove : MonoBehaviour
             isGrounded = false;
         }
     }
-
+    */
   
 
 }

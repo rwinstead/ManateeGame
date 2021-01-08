@@ -30,6 +30,7 @@ public class KillPlayerOnCollision : MonoBehaviour
             Debug.Log(startPosition.position);
          
             rb.position = startPosition.position;
+            rb.velocity = Vector3.zero;
            
         }
 
