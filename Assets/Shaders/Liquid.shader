@@ -81,9 +81,9 @@
 			// rotate around XZ
 			float3 worldPosZ = float3 (worldPosX.y, worldPosX.z, worldPosX.x);		
 			// combine rotations with worldPos, based on sine wave from script
-			float3 worldPosAdjusted = worldPos + (worldPosX  * _WobbleX)+ (worldPosZ* _WobbleZ); 
+            float3 worldPosAdjusted = worldPos + (worldPosX  * _WobbleX)+ (worldPosZ* _WobbleZ); 
 			// how high up the liquid is
-			o.fillEdge =  worldPosAdjusted.y + _FillAmount;
+            o.fillEdge =  worldPosAdjusted.y + _FillAmount;
 
 			o.viewDir = normalize(ObjSpaceViewDir(v.vertex));
             o.normal = v.normal;
@@ -95,6 +95,7 @@
            // sample the texture
            fixed4 col = tex2D(_MainTex, i.uv) * _Tint;
            // apply fog
+
            UNITY_APPLY_FOG(i.fogCoord, col);
 		   
 		   // rim light
@@ -106,7 +107,8 @@
 		   float4 foam = ( step(i.fillEdge, 0.5) - step(i.fillEdge, (0.5 - _Rim)))  ;
            float4 foamColored = foam * (_FoamColor * 0.9);
 		   // rest of the liquid
-		   float4 result = step(i.fillEdge, 0.5) - foam;
+
+           float4 result = step(i.fillEdge, 0.5) - foam;
            float4 resultColored = result * col;
 		   // both together, with the texture
            float4 finalResult = resultColored + foamColored;				
