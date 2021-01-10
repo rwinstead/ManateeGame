@@ -9,7 +9,7 @@
 		[HideInInspector] _WobbleZ ("WobbleZ", Range(-1,1)) = 0.0
         _TopColor ("Top Color", Color) = (1,1,1,1)
 		_FoamColor ("Foam Line Color", Color) = (1,1,1,1)
-        _Rim ("Foam Line Width", Range(0,0.1)) = 0.0    
+        _Rim ("Foam Line Width", Range(0,1)) = 0.0    
 		_RimColor ("Rim Color", Color) = (1,1,1,1)
 	    _RimPower ("Rim Power", Range(0,10)) = 0.0
     }
