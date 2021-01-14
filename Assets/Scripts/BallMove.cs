@@ -9,6 +9,7 @@ public class BallMove : MonoBehaviour
     public Transform cam;
     public float speed = 6f;
 
+
     //public float jumpHeight = 3f;
 
     public float turnSmoothTime = 0.1f;
@@ -26,6 +27,8 @@ public class BallMove : MonoBehaviour
     public Animator anim;
     Vector3 velocity;
 
+    public float gravity = -20f;
+
     Vector3 jump;
     public float jumpForce = 60.0f;
     public float fallMultiplier = 2.5f;
@@ -33,12 +36,15 @@ public class BallMove : MonoBehaviour
 
     private void Start()
     {
-        
+        Physics.gravity = new Vector3(0, gravity, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+       
+
         jump = Vector3.up;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -103,7 +109,7 @@ public class BallMove : MonoBehaviour
 
         if (direction.magnitude >= .01f)
         {
-
+            
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
@@ -111,6 +117,7 @@ public class BallMove : MonoBehaviour
             rb.AddForce(moveDir.normalized * speed);
 
         }
+
     }
 
     // THIS SECTION CHECKS FOR THE GROUND VIA COLLISION *****************************
