@@ -40,6 +40,7 @@ public class BallMove : MonoBehaviour
     private void Start()
     {
         Physics.gravity = new Vector3(0, gravity, 0);
+        rb.maxAngularVelocity = 500f;
     }
 
     // Update is called once per frame
@@ -128,7 +129,7 @@ public class BallMove : MonoBehaviour
 
         if (checkGroundAngle.groundAngle > .5)
         {
-            rb.AddForce(Vector3.down * checkGroundAngle.groundAngle * slopeAcceleration, ForceMode.Force);
+            rb.AddForce(Vector3.down * checkGroundAngle.groundAngle * slopeAcceleration, ForceMode.Acceleration);
         }
 
     }

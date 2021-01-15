@@ -30,6 +30,7 @@ public class GoalTriggerEvent : MonoBehaviour
 
             rb.position = startPosition.position;
             rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
 
         }
 
