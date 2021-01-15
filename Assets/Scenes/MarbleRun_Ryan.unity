@@ -608,6 +608,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 677102818}
+  - component: {fileID: 677102819}
   m_Layer: 0
   m_Name: Groundcheck
   m_TagString: Untagged
@@ -623,12 +624,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 677102817}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.338, z: 0}
+  m_LocalPosition: {x: 0, y: -2.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 721307210}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &677102819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677102817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d39b1ba8b9b64f41b51d6444a54e4d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256
+  groundCheckDistance: 3
+  groundAngle: 0
 --- !u!1001 &687145529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -636,6 +654,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8961359253771211100, guid: 26353fac4f117a44b949cedb0d1e41d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26353fac4f117a44b949cedb0d1e41d8,
         type: 3}
       propertyPath: m_RootOrder
@@ -1106,7 +1129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 946771736}
   m_Layer: 0
-  m_Name: Player(ball)
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1790,7 +1813,6 @@ GameObject:
   - component: {fileID: 1730406041}
   - component: {fileID: 1730406040}
   - component: {fileID: 1730406039}
-  - component: {fileID: 1730406038}
   - component: {fileID: 1730406045}
   m_Layer: 0
   m_Name: ball
@@ -1799,21 +1821,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1730406038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730406037}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2920ad8669be9484fac02c13c3518fc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxWobble: 0.03
-  WobbleSpeed: 1
-  Recovery: 1
 --- !u!114 &1730406039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1828,16 +1835,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1730406040}
   cam: {fileID: 1762686029}
-  speed: 40
+  speed: 70
+  groundedFriction: 0.99
+  checkGroundAngle: {fileID: 677102819}
+  slopeAcceleration: 1.5
   turnSmoothTime: 0.1
   groundCheck: {fileID: 677102818}
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  groundDistance: 0.4
+  groundDistance: 1
   isGrounded: 0
   anim: {fileID: 1706061660}
-  gravity: -20
+  gravity: -18
   jumpForce: 18
   fallMultiplier: 2.5
   lowJumpMultiplier: 2

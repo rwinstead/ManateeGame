@@ -8,12 +8,15 @@ public class BallMove : MonoBehaviour
     public Rigidbody rb;
     public Transform cam;
     public float speed = 6f;
+    public float groundedFriction;
+
+    public checkGroundAngle checkGroundAngle;
+    public float slopeAcceleration;
 
 
     //public float jumpHeight = 3f;
 
     public float turnSmoothTime = 0.1f;
-    float turnSmoothVelocity;
 
     //Gravity
 
@@ -43,7 +46,7 @@ public class BallMove : MonoBehaviour
     void Update()
     {
 
-       
+        
 
         jump = Vector3.up;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -84,7 +87,7 @@ public class BallMove : MonoBehaviour
                 anim.SetTrigger("FlipForward");
             }
 
-            
+
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
 
@@ -102,6 +105,7 @@ public class BallMove : MonoBehaviour
 
     void FixedUpdate()
     {
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -109,13 +113,22 @@ public class BallMove : MonoBehaviour
 
         if (direction.magnitude >= .01f)
         {
-            
+
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             rb.AddForce(moveDir.normalized * speed);
+        }
 
+        if (rb.velocity.magnitude > .1 && isGrounded)
+        {
+            rb.velocity *= groundedFriction;
+        }
+
+        if (checkGroundAngle.groundAngle > .5)
+        {
+            rb.AddForce(Vector3.down * checkGroundAngle.groundAngle * slopeAcceleration, ForceMode.Force);
         }
 
     }
@@ -146,6 +159,5 @@ public class BallMove : MonoBehaviour
         }
     }
     */
-  
 
 }
