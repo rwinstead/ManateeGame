@@ -2234,7 +2234,7 @@ MonoBehaviour:
   rb: {fileID: 1730406040}
   cam: {fileID: 1762686029}
   speed: 30
-  groundedFriction: 0.993
+  groundedFriction: 0.988
   checkGroundAngle: {fileID: 677102819}
   slopeAcceleration: 1
   turnSmoothTime: 0.1
