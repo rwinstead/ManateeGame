@@ -47,7 +47,7 @@ public class BallMove : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(rb.angularVelocity.magnitude);
+        //Debug.Log(rb.angularVelocity.magnitude);
 
         jump = Vector3.up;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
