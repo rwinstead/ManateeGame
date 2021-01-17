@@ -47,7 +47,7 @@ public class BallMove : MonoBehaviour
     void Update()
     {
 
-        
+        Debug.Log(rb.angularVelocity.magnitude);
 
         jump = Vector3.up;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -55,6 +55,7 @@ public class BallMove : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
+            
         }
 
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -67,6 +68,7 @@ public class BallMove : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            
 
             if (direction.x < 0)
             {
