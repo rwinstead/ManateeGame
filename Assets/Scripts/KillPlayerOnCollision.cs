@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class KillPlayerOnCollision : MonoBehaviour
 {
-
-    public Transform startPosition;
-    public GameObject Player;
     Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        rb = Player.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -22,16 +18,11 @@ public class KillPlayerOnCollision : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("triggered");
+        Debug.Log("Collision with: "+other.name);
 
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log(Player.transform.position);
-            Debug.Log(startPosition.position);
-         
-            rb.position = startPosition.position;
-            rb.velocity = Vector3.zero;
-           
+            other.GetComponent<PlayerRespawn>().Respawn();
         }
 
 

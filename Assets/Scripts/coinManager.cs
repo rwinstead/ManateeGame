@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class coinManager : MonoBehaviour
 {
 
-    public int coinsCollected;
+    private int coinsCollected;
+    public TMP_Text coinDisplay;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +19,7 @@ public class coinManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        coinDisplay.text = "Coins: " + coinsCollected;
     }
 
     void OnTriggerEnter(Collider other)
