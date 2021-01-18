@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class BallMove : MonoBehaviour
+
+public class BallMove : NetworkBehaviour
 {
 
     public Rigidbody rb;
     public Transform cam;
+    
     public float speed = 6f;
     public float groundedFriction;
 
@@ -41,126 +44,132 @@ public class BallMove : MonoBehaviour
     {
         Physics.gravity = new Vector3(0, gravity, 0);
         rb.maxAngularVelocity = 500f;
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(rb.angularVelocity.magnitude);
-
-        jump = Vector3.up;
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (isGrounded && velocity.y < 0)
+        if (isLocalPlayer) // this ensures that player only controls their character on server
         {
-            velocity.y = -2f;
-            
-        }
-
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-        //Debug.Log(direction);
 
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            
+            //Debug.Log(rb.angularVelocity.magnitude);
 
-            if (direction.x < 0)
+            jump = Vector3.up;
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+            if (isGrounded && velocity.y < 0)
             {
-                anim.SetTrigger("JumpLeft");
+                velocity.y = -2f;
+
             }
 
-            if (direction.x > 0)
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+
+            Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+            //Debug.Log(direction);
+
+
+            if (Input.GetButtonDown("Jump") && isGrounded)
             {
-                anim.SetTrigger("JumpRight");
+
+
+                if (direction.x < 0)
+                {
+                    anim.SetTrigger("JumpLeft");
+                }
+
+                if (direction.x > 0)
+                {
+                    anim.SetTrigger("JumpRight");
+                }
+
+                if (direction.z > 0 && direction.x == 0)
+                {
+                    anim.SetTrigger("FlipForward");
+                }
+
+                if (direction.z < 0 && direction.x == 0)
+                {
+                    anim.SetTrigger("FlipForward");
+                }
+
+
+                rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             }
 
-            if (direction.z > 0 && direction.x == 0)
+            if (rb.velocity.y < 0)
             {
-                anim.SetTrigger("FlipForward");
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             }
 
-            if (direction.z < 0 && direction.x == 0)
+            else if (rb.velocity.y > 0 && !Input.GetKeyDown(KeyCode.Space))
             {
-                anim.SetTrigger("FlipForward");
+                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
-
-
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
-
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-
-        else if (rb.velocity.y > 0 && !Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
-
     }
 
     void FixedUpdate()
     {
-
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-        if (direction.magnitude >= .01f)
+        if (isLocalPlayer) // this ensures that player only controls their character on server
         {
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
 
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            rb.AddForce(moveDir.normalized * speed);
+            if (direction.magnitude >= .01f)
+            {
+
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+                //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                rb.AddForce(moveDir.normalized * speed);
+            }
+
+            if (rb.velocity.magnitude > .1 && isGrounded)
+            {
+                rb.velocity *= groundedFriction;
+            }
+
+            if (checkGroundAngle.groundAngle > .5)
+            {
+                rb.AddForce(Vector3.down * checkGroundAngle.groundAngle * slopeAcceleration, ForceMode.Acceleration);
+            }
+
         }
 
-        if (rb.velocity.magnitude > .1 && isGrounded)
+        // THIS SECTION CHECKS FOR THE GROUND VIA COLLISION *****************************
+        /*
+        void OnCollisionStay(Collision collision)
         {
-            rb.velocity *= groundedFriction;
+
+            if (collision.gameObject.layer == 8)
+            {
+                isGrounded = true;
+                Debug.Log("colliding with " + collision.gameObject);
+            }
+
+            else
+            {
+                isGrounded = false;
+            }
         }
 
-        if (checkGroundAngle.groundAngle > .5)
+        void OnCollisionExit(Collision other)
         {
-            rb.AddForce(Vector3.down * checkGroundAngle.groundAngle * slopeAcceleration, ForceMode.Acceleration);
+            Debug.Log("Stopped colliding with " + other.gameObject);
+            if (other.gameObject.layer == 8)
+            {
+                isGrounded = false;
+            }
         }
-
+        */
     }
-
-    // THIS SECTION CHECKS FOR THE GROUND VIA COLLISION *****************************
-    /*
-    void OnCollisionStay(Collision collision)
-    {
-
-        if (collision.gameObject.layer == 8)
-        {
-            isGrounded = true;
-            Debug.Log("colliding with " + collision.gameObject);
-        }
-
-        else
-        {
-            isGrounded = false;
-        }
-    }
-
-    void OnCollisionExit(Collision other)
-    {
-        Debug.Log("Stopped colliding with " + other.gameObject);
-        if (other.gameObject.layer == 8)
-        {
-            isGrounded = false;
-        }
-    }
-    */
-
 }

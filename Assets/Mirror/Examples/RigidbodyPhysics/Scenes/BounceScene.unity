@@ -426,7 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  rb: {fileID: 1019217379}
+  rigidbody3d: {fileID: 1019217379}
   force: 500
 --- !u!114 &1019217377
 MonoBehaviour:
@@ -682,7 +682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  rb: {fileID: 1200292995}
+  rigidbody3d: {fileID: 1200292995}
   force: 500
 --- !u!114 &1200292992
 MonoBehaviour:
