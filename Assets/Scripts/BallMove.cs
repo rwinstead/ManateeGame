@@ -51,8 +51,8 @@ public class BallMove : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isLocalPlayer) // this ensures that player only controls their character on server
-        {
+        if (!isLocalPlayer) { return; } // this ensures that player only controls their character on server
+        
 
 
             //Debug.Log(rb.angularVelocity.magnitude);
@@ -111,65 +111,65 @@ public class BallMove : NetworkBehaviour
             {
                 rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
-        }
+        
     }
 
-    void FixedUpdate()
+void FixedUpdate()
+{
+        if (!isLocalPlayer) { return; } // this ensures that player only controls their character on server
+    
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        if (direction.magnitude >= .01f)
+        {
+
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            rb.AddForce(moveDir.normalized * speed);
+        }
+
+        if (rb.velocity.magnitude > .1 && isGrounded)
+        {
+            rb.velocity *= groundedFriction;
+        }
+
+        if (checkGroundAngle.groundAngle > .5)
+        {
+            rb.AddForce(Vector3.down * checkGroundAngle.groundAngle * slopeAcceleration, ForceMode.Acceleration);
+        }
+
+    }
+
+    // THIS SECTION CHECKS FOR THE GROUND VIA COLLISION *****************************
+    /*
+    void OnCollisionStay(Collision collision)
     {
-        if (isLocalPlayer) // this ensures that player only controls their character on server
+
+        if (collision.gameObject.layer == 8)
         {
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
-
-            Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-            if (direction.magnitude >= .01f)
-            {
-
-                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-                //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-
-                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                rb.AddForce(moveDir.normalized * speed);
-            }
-
-            if (rb.velocity.magnitude > .1 && isGrounded)
-            {
-                rb.velocity *= groundedFriction;
-            }
-
-            if (checkGroundAngle.groundAngle > .5)
-            {
-                rb.AddForce(Vector3.down * checkGroundAngle.groundAngle * slopeAcceleration, ForceMode.Acceleration);
-            }
-
+            isGrounded = true;
+            Debug.Log("colliding with " + collision.gameObject);
         }
 
-        // THIS SECTION CHECKS FOR THE GROUND VIA COLLISION *****************************
-        /*
-        void OnCollisionStay(Collision collision)
+        else
         {
-
-            if (collision.gameObject.layer == 8)
-            {
-                isGrounded = true;
-                Debug.Log("colliding with " + collision.gameObject);
-            }
-
-            else
-            {
-                isGrounded = false;
-            }
+            isGrounded = false;
         }
-
-        void OnCollisionExit(Collision other)
-        {
-            Debug.Log("Stopped colliding with " + other.gameObject);
-            if (other.gameObject.layer == 8)
-            {
-                isGrounded = false;
-            }
-        }
-        */
     }
+
+    void OnCollisionExit(Collision other)
+    {
+        Debug.Log("Stopped colliding with " + other.gameObject);
+        if (other.gameObject.layer == 8)
+        {
+            isGrounded = false;
+        }
+    }
+    */
+    
 }
