@@ -18,19 +18,20 @@ public class KillPlayerOnCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision with: "+other.name);
+        Debug.Log("Collision with: " + other.name);
 
         if (other.gameObject.tag == "Player")
         {
 
             other.GetComponent<PlayerRespawn>().Respawn();
 
+        }
+
+
     }
-
-
 }
