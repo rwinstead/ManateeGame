@@ -28,7 +28,7 @@ public class KillPlayerOnCollision : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
 
-            other.GetComponent<PlayerRespawn>().Respawn();
+            other.GetComponentInParent<PlayerRespawn>().Respawn();
 
         }
 

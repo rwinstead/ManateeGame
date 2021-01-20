@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a1460ecece4e44991cc3cb2da08789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinDisplay: {fileID: 0}
 --- !u!1 &1732611858081578897
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +382,7 @@ GameObject:
   - component: {fileID: 1721922199716516374}
   - component: {fileID: -2210921288439498677}
   - component: {fileID: -1438752888057291106}
+  - component: {fileID: 6227473633288946600}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -437,8 +439,8 @@ MonoBehaviour:
   syncInterval: 0.1
   rb: {fileID: 1732611858038748754}
   cam: {fileID: 0}
-  speed: 30
-  groundedFriction: 0.988
+  speed: 45
+  groundedFriction: 0.989
   checkGroundAngle: {fileID: 1732611858969351209}
   slopeAcceleration: 1
   turnSmoothTime: 0.1
@@ -523,6 +525,20 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   target: {fileID: 1732611858941793920}
+--- !u!114 &6227473633288946600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732611858697422813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557f8f132c6916341b249b93d1d126b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartPosition: {fileID: 0}
+  PlayerRespawnLocation: {x: 0, y: 0, z: 0}
 --- !u!1 &1732611858941793923
 GameObject:
   m_ObjectHideFlags: 0

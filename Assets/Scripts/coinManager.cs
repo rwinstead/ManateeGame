@@ -13,6 +13,7 @@ public class coinManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        coinDisplay = GameObject.FindGameObjectWithTag("coinText").GetComponent<TMP_Text>();
         coinsCollected = 0;
     }
 
