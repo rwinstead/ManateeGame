@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class BallMove : MonoBehaviour
+
+public class BallMove : NetworkBehaviour
 {
 
     public Rigidbody rb;
     public Transform cam;
+    
     public float speed = 6f;
     public float groundedFriction;
 
@@ -41,74 +44,78 @@ public class BallMove : MonoBehaviour
     {
         Physics.gravity = new Vector3(0, gravity, 0);
         rb.maxAngularVelocity = 500f;
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isLocalPlayer) { return; } // this ensures that player only controls their character on server
+        
+           //Debug.Log(rb.angularVelocity.magnitude);
 
-        //Debug.Log(rb.angularVelocity.magnitude);
+            jump = Vector3.up;
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        jump = Vector3.up;
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-            
-        }
-
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-        //Debug.Log(direction);
-
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            
-
-            if (direction.x < 0)
+            if (isGrounded && velocity.y < 0)
             {
-                anim.SetTrigger("JumpLeft");
+                velocity.y = -2f;
+
             }
 
-            if (direction.x > 0)
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+
+            Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+            //Debug.Log(direction);
+
+
+            if (Input.GetButtonDown("Jump") && isGrounded)
             {
-                anim.SetTrigger("JumpRight");
+
+
+                if (direction.x < 0)
+                {
+                    anim.SetTrigger("JumpLeft");
+                }
+
+                if (direction.x > 0)
+                {
+                    anim.SetTrigger("JumpRight");
+                }
+
+                if (direction.z > 0 && direction.x == 0)
+                {
+                    anim.SetTrigger("FlipForward");
+                }
+
+                if (direction.z < 0 && direction.x == 0)
+                {
+                    anim.SetTrigger("FlipForward");
+                }
+
+
+                rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             }
 
-            if (direction.z > 0 && direction.x == 0)
+            if (rb.velocity.y < 0)
             {
-                anim.SetTrigger("FlipForward");
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             }
 
-            if (direction.z < 0 && direction.x == 0)
+            else if (rb.velocity.y > 0 && !Input.GetKeyDown(KeyCode.Space))
             {
-                anim.SetTrigger("FlipForward");
+                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
-
-
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-        }
-
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-
-        else if (rb.velocity.y > 0 && !Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
-
+        
     }
 
-    void FixedUpdate()
-    {
-
+void FixedUpdate()
+{
+        if (!isLocalPlayer) { return; } // this ensures that player only controls their character on server
+    
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -162,5 +169,5 @@ public class BallMove : MonoBehaviour
         }
     }
     */
-
+    
 }
