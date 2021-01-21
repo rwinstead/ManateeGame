@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 
 public class coinManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class coinManager : MonoBehaviour
 
         if (other.gameObject.CompareTag("Collectable"))
         {
+            
             coinsCollected++;
             Debug.Log("Got Coin! New Total: "+coinsCollected);
             other.gameObject.SetActive(false);
