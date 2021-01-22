@@ -13,10 +13,14 @@ public class NetworkManagerLobby : NetworkManager
     [Scene] [SerializeField] private string menuScene = string.Empty;
 
     [Header("Room")]
-
     [SerializeField] private NetworkRoomPlayer roomPlayerPrefab = null;
 
+    [Header("In-Game")]
+    [SerializeField] private NetworkGamePlayer gamePlayerPrefab = null;
+
     public List<NetworkRoomPlayer> RoomPlayers { get; } = new List<NetworkRoomPlayer>();
+
+    public List<NetworkGamePlayer> GamePlayers { get; } = new List<NetworkGamePlayer>();
 
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
@@ -140,5 +144,41 @@ public class NetworkManagerLobby : NetworkManager
 
 
     }
+
+    public void StartGame()
+    {
+        if ("Assets/Scenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene)
+        {
+            if (!IsReadyToStart())
+            {
+                return;
+            }
+
+            ServerChangeScene("Racing_Multi");
+        }
+    }
+
+    public override void ServerChangeScene(string newSceneName)
+    {
+
+        //From menu to game
+
+        if ("Assets/Scenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene)
+        {
+            for (int i = RoomPlayers.Count -1; i >= 0; i--)
+            {
+                var conn = RoomPlayers[i].connectionToClient;
+                var gameplayerInstance = Instantiate(gamePlayerPrefab);
+                gameplayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
+
+                NetworkServer.Destroy(conn.identity.gameObject);
+                NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject, true);
+
+            }
+        }
+
+            base.ServerChangeScene(newSceneName);
+    }
+
 
 }

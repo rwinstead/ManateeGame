@@ -2487,6 +2487,8 @@ MonoBehaviour:
   menuScene: Assets/Scenes/MainMenu.unity
   roomPlayerPrefab: {fileID: 6039632768249002908, guid: 42b27dc672af65d48b5eaf0e42e72363,
     type: 3}
+  gamePlayerPrefab: {fileID: 2500694406349195492, guid: 486f8c6c02bf8c945b3c7798cabe71e9,
+    type: 3}
 --- !u!4 &923823448
 Transform:
   m_ObjectHideFlags: 0

@@ -140,7 +140,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
     {
         if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
 
-        //start game here!
+        Room.StartGame();
 
 
     }
