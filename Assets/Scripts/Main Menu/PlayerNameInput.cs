@@ -43,7 +43,7 @@ public class PlayerNameInput : MonoBehaviour
         }
 
         name = nameInputField.text;
-        Debug.Log(name);
+        //Debug.Log(name);
         continueButton.interactable = !string.IsNullOrEmpty(name);
     }
 

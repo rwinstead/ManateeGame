@@ -426,7 +426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 51}
+  m_AnchoredPosition: {x: 0, y: -1}
   m_SizeDelta: {x: 500, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &227662482
@@ -443,8 +443,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkManager: {fileID: 923823447}
   landingPagePanel: {fileID: 755020622}
-  ipAdressInputField: {fileID: 0}
-  joinButton: {fileID: 0}
+  ipAdressInputField: {fileID: 817308359}
+  joinButton: {fileID: 1712316123}
 --- !u!114 &227662483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,7 +1093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: 70}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &500439993
@@ -1314,7 +1314,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 43}
+  m_AnchoredPosition: {x: 0, y: 9}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &552413004
@@ -1786,7 +1786,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: localhost
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3787d271e467e443493ce1845b4bf774, type: 2}
   m_sharedMaterial: {fileID: 2582468696588787632, guid: 3787d271e467e443493ce1845b4bf774,
@@ -1940,7 +1940,7 @@ GameObject:
   - component: {fileID: 817308360}
   - component: {fileID: 817308359}
   m_Layer: 0
-  m_Name: InputField (TMP)
+  m_Name: InputField_IpAddress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2248,10 +2248,10 @@ RectTransform:
   m_Father: {fileID: 883793473}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -49}
+  m_SizeDelta: {x: 1550, y: 872}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &836535886
 MonoBehaviour:
@@ -2398,7 +2398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkManager: {fileID: 923823447}
-  landingPagePanel: {fileID: 0}
+  landingPagePanel: {fileID: 755020622}
 --- !u!4 &885070612
 Transform:
   m_ObjectHideFlags: 0
@@ -2471,20 +2471,22 @@ MonoBehaviour:
   showDebugMessages: 0
   serverTickRate: 30
   offlineScene: 
-  onlineScene: 
+  onlineScene: Assets/Scenes/MainMenu.unity
   transport: {fileID: 923823446}
   networkAddress: localhost
   maxConnections: 4
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 8935487997522613765, guid: 42b27dc672af65d48b5eaf0e42e72363,
+  playerPrefab: {fileID: 8375568003236179614, guid: f0fc3deb482d81a4f81ce307a3b4934d,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
-  menuScene: 
-  roomPlayerPrefab: {fileID: 0}
+  minPlayers: 1
+  menuScene: Assets/Scenes/MainMenu.unity
+  roomPlayerPrefab: {fileID: 6039632768249002908, guid: 42b27dc672af65d48b5eaf0e42e72363,
+    type: 3}
 --- !u!4 &923823448
 Transform:
   m_ObjectHideFlags: 0
@@ -3820,12 +3822,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 227662482}
+        m_MethodName: JoinLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3900,11 +3902,11 @@ RectTransform:
   m_Father: {fileID: 883793473}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.0000000022119, y: -191}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 210}
   m_SizeDelta: {x: 1836, y: 118.76581}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1718649996
 MonoBehaviour:
   m_ObjectHideFlags: 0
