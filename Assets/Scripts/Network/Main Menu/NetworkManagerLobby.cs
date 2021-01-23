@@ -17,6 +17,9 @@ public class NetworkManagerLobby : NetworkManager
 
     [Header("In-Game")]
     [SerializeField] private NetworkGamePlayer gamePlayerPrefab = null;
+    [SerializeField] private GameObject playerSpawnSystem = null;
+
+    private string selectedMap = "MarbleRun_Ryan_networked";
 
     public List<NetworkRoomPlayer> RoomPlayers { get; } = new List<NetworkRoomPlayer>();
 
@@ -24,6 +27,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
+    public static event Action<NetworkConnection> OnServerReadied;
 
     public override void OnStartServer()
     {
@@ -154,7 +158,7 @@ public class NetworkManagerLobby : NetworkManager
                 return;
             }
 
-            ServerChangeScene("Racing_Multi");
+            ServerChangeScene(selectedMap);
         }
     }
 
@@ -179,6 +183,42 @@ public class NetworkManagerLobby : NetworkManager
 
             base.ServerChangeScene(newSceneName);
     }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        if(sceneName != "MainMenu")
+        {
+            GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
+            NetworkServer.Spawn(playerSpawnSystemInstance);
+        }
+    }
+
+
+
+    public override void OnServerReady(NetworkConnection conn)
+    {
+        base.OnServerReady(conn);
+
+        OnServerReadied?.Invoke(conn);
+    }
+
+    public void selectMap(int mapName)
+    {
+        Debug.Log("Host has selected " + mapName);
+
+        if(mapName == 0)
+        {
+            selectedMap = "MarbleRun_Ryan_networked";
+        }
+
+        if(mapName == 1)
+        {
+            selectedMap = "Racing_Multi_networked";
+        }
+    }
+
+
+
 
 
 }

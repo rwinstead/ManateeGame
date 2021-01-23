@@ -23,7 +23,7 @@ public class rotateManateeInside :NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isLocalPlayer)
+        if (!hasAuthority) { return; }
         {
             //transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
             float horizontal = Input.GetAxisRaw("Horizontal");

@@ -13,6 +13,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[4];
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
     [SerializeField] private Button startGameButton = null;
+    [SerializeField] private TMP_Dropdown mapSelectorDropdown = null;
 
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";
@@ -27,6 +28,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
         {
             isLeader = value;
             startGameButton.gameObject.SetActive(value);
+            mapSelectorDropdown.gameObject.SetActive(value);
         }
     }
 
@@ -145,7 +147,12 @@ public class NetworkRoomPlayer : NetworkBehaviour
 
     }
 
+    [Command]
 
+    public void setMap()
+    {
+        Room.selectMap(mapSelectorDropdown.value);
+    }
 
 
 

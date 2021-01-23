@@ -18,7 +18,7 @@ public class cameraFindPlayer : NetworkBehaviour
 
     void Start()
     {
-        if (isLocalPlayer) {
+        if (hasAuthority) {
             //Debug.Log(vcam);
 
             //vcam.m_Follow = player;

@@ -51,7 +51,7 @@ public class BallMove : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer) { return; } // this ensures that player only controls their character on server
+        if (!hasAuthority) { return; } // this ensures that player only controls their character on server
         
            //Debug.Log(rb.angularVelocity.magnitude);
 
@@ -114,7 +114,7 @@ public class BallMove : NetworkBehaviour
 
 void FixedUpdate()
 {
-        if (!isLocalPlayer) { return; } // this ensures that player only controls their character on server
+        if (!hasAuthority) { return; } // this ensures that player only controls their character on server
     
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
