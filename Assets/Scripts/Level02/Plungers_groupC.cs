@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class Plungers_groupA : NetworkBehaviour
+public class Plungers_groupC : NetworkBehaviour
 {
 
     private float targetY = 244.110f;
