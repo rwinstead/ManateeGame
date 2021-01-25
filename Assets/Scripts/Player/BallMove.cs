@@ -40,10 +40,11 @@ public class BallMove : NetworkBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
 
+    
     private void Start()
     {
         Physics.gravity = new Vector3(0, gravity, 0);
-        rb.maxAngularVelocity = 500f;
+        rb.maxAngularVelocity = Mathf.Infinity;
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
 
     }
@@ -143,6 +144,7 @@ void FixedUpdate()
 
     }
 
+
     // THIS SECTION CHECKS FOR THE GROUND VIA COLLISION *****************************
     /*
     void OnCollisionStay(Collision collision)
@@ -169,5 +171,5 @@ void FixedUpdate()
         }
     }
     */
-    
+
 }

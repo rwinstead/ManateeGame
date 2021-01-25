@@ -2,37 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using System;
 using Mirror;
 
-public class coinManager : MonoBehaviour
+public class coinManager : NetworkBehaviour
 {
 
-    private int coinsCollected;
-    public TMP_Text coinDisplay;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        coinDisplay = GameObject.FindGameObjectWithTag("coinText").GetComponent<TMP_Text>();
-        coinsCollected = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        coinDisplay.text = "Coins: " + coinsCollected;
-    }
+    public static event Action collectCoin;
 
     void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.CompareTag("Collectable"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            
-            coinsCollected++;
-            Debug.Log("Got Coin! New Total: "+coinsCollected);
-            other.gameObject.SetActive(false);
+            if (other.gameObject.GetComponentInParent<NetworkIdentity>().hasAuthority)
+            {
+                collectCoin?.Invoke();
+            }
+            gameObject.SetActive(false);
         }
     }
 }
