@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MarbleRun_Ryan_networked.unity
     guid: a4722678d33d3504a8c75e37e38ba67e
+  - enabled: 1
+    path: Assets/Scenes/Racing02_networked.unity
+    guid: b4dd0359e7b1ef54594c2c80aec2f27e
   m_configObjects: {}

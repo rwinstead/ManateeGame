@@ -215,6 +215,12 @@ public class NetworkManagerLobby : NetworkManager
         {
             selectedMap = "Racing_Multi_networked";
         }
+
+        if(mapName == 2)
+        {
+            selectedMap = "Racing02_networked";
+        }
+
     }
 
 
