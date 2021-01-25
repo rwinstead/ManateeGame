@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6960968822992219172}
   - component: {fileID: 8600681091638099678}
   - component: {fileID: 8600681091638099666}
+  - component: {fileID: -8558096428167820627}
+  - component: {fileID: -3695225269880723862}
   m_Layer: 0
   m_Name: coin
   m_TagString: Collectable
@@ -115,3 +117,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8558096428167820627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906616153123229169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a1460ecece4e44991cc3cb2da08789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3695225269880723862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906616153123229169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0

@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1732611858038748752}
   - component: {fileID: 1732611858038748755}
   - component: {fileID: 1732611858038748754}
+  - component: {fileID: 4745982815926258446}
   m_Layer: 0
   m_Name: ball
   m_TagString: Player
@@ -171,7 +172,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732611858038748767}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 07f1ac24571eac248b255786738f88eb, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -193,6 +194,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &4745982815926258446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732611858038748767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d88523aaccad7c48af1266f78c37258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackForce: 2
+  rb: {fileID: 1732611858038748754}
 --- !u!1 &1732611858081578897
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +386,7 @@ GameObject:
   - component: {fileID: 6227473633288946600}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -428,7 +443,7 @@ MonoBehaviour:
   speed: 45
   groundedFriction: 0.989
   checkGroundAngle: {fileID: 1732611858969351209}
-  slopeAcceleration: 1
+  slopeAcceleration: 2
   turnSmoothTime: 0.1
   groundCheck: {fileID: 1732611858969351208}
   groundMask:
@@ -487,7 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.01
+  syncInterval: 0.001
   target: {fileID: 1732611858038748754}
   lerpVelocityAmount: 100
   lerpPositionAmount: 100
