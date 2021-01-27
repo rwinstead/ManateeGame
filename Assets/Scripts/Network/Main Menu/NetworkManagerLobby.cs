@@ -9,6 +9,9 @@ using System;
 public class NetworkManagerLobby : NetworkManager
 {
 
+    //just using this to test connection
+    public int thisGuy = 42;
+    
     [SerializeField] private int minPlayers = 1;
     [Scene] [SerializeField] private string menuScene = string.Empty;
 
@@ -219,6 +222,10 @@ public class NetworkManagerLobby : NetworkManager
         if(mapName == 2)
         {
             selectedMap = "Racing02_networked";
+        }
+        if(mapName == 3)
+        {
+            selectedMap = "JoshRacing01";
         }
 
     }

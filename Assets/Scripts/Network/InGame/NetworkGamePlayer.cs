@@ -9,7 +9,11 @@ public class NetworkGamePlayer : NetworkBehaviour
 {
 
     [SyncVar]
-    private string displayName = "Loading...";
+    public string displayName = "Loading...";
+
+    public float currentRunStartTime = 0;
+    public float currentRunEndTime = 0;
+    public float bestRunTimeThisSession = 0;
 
     private NetworkManagerLobby room;
 

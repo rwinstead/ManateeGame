@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 1732611858038748755}
   - component: {fileID: 1732611858038748754}
   - component: {fileID: 4745982815926258446}
+  - component: {fileID: 1092134362211846725}
   m_Layer: 0
   m_Name: ball
   m_TagString: Player
@@ -206,8 +207,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d88523aaccad7c48af1266f78c37258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackForce: 2
-  rb: {fileID: 1732611858038748754}
+--- !u!114 &1092134362211846725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732611858038748767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1732611858081578897
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +399,7 @@ GameObject:
   - component: {fileID: -2210921288439498677}
   - component: {fileID: -1438752888057291106}
   - component: {fileID: 6227473633288946600}
+  - component: {fileID: 8411315014955983531}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -540,6 +556,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartPosition: {fileID: 0}
   PlayerRespawnLocation: {x: 0, y: 0, z: 0}
+--- !u!114 &8411315014955983531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732611858697422813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf406ba0e60451d47bc6f28939b5a8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  currentRunStartTime: 0
+  currentRunEndTime: 0
+  bestRunTimeThisSession: 1e+10
+  currentRunTime: 0
+  isRunning: 0
 --- !u!1 &1732611858941793923
 GameObject:
   m_ObjectHideFlags: 0

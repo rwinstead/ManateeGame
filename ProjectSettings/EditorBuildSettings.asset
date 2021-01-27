@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Racing02_networked.unity
     guid: b4dd0359e7b1ef54594c2c80aec2f27e
+  - enabled: 1
+    path: Assets/Scenes/JoshRacing01.unity
+    guid: e478bf4cea40d5b41bec5026d6599e6a
   m_configObjects: {}
