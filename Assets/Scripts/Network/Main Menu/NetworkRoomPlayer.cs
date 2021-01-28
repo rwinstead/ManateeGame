@@ -15,6 +15,12 @@ public class NetworkRoomPlayer : NetworkBehaviour
     [SerializeField] private Button startGameButton = null;
     [SerializeField] private TMP_Dropdown mapSelectorDropdown = null;
 
+
+    //For the two syncvars below: the hook parameter means that when the client gets an update 
+    //on the variable beneath it (either the string DisplayName or bool IsReady),
+    // invoke the method that is the hook. So whenever the client gets a change
+    // on IsReady or DisplayName, it will automatically invoke the method.
+
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
