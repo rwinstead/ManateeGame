@@ -89,7 +89,7 @@ public class NetworkManagerLobby : NetworkManager
         // Debug.Log(menuScene);
         //Debug.Log(SceneManager.GetActiveScene().name == menuScene);
 
-        if("Assets/Scenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene) //only add player to lobby if we're in the menu screen
+        if("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene) //only add player to lobby if we're in the menu screen
         {
 
             bool isLeader = RoomPlayers.Count == 0; //Room leader if you're first to join
@@ -154,7 +154,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public void StartGame()
     {
-        if ("Assets/Scenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene)
+        if ("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene)
         {
             if (!IsReadyToStart())
             {
@@ -170,7 +170,7 @@ public class NetworkManagerLobby : NetworkManager
 
         //From menu to game
 
-        if ("Assets/Scenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene)
+        if ("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene)
         {
             for (int i = RoomPlayers.Count -1; i >= 0; i--)
             {

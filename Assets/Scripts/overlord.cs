@@ -34,6 +34,8 @@ public class Overlord : NetworkBehaviour
 
         TimeToBeatText = GameObject.Find("TimeToBeatUI").GetComponent<TMP_Text>();
 
+        this.enabled = true;
+
 
         foreach (NetworkGamePlayer player in PlayerList)
         {
