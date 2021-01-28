@@ -589,12 +589,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  TimeToBeatDisplay: Time TO Beat
-  TimeToBeat: 1e+11
-  currentRunStartTime: 0
-  currentRunEndTime: 0
-  currentRunTimeServer: 0
+  enabled: 0
   bestRunTimeThisSession: 1e+10
+  thisPlayer: {fileID: 0}
   currentRunTime: 0
   isRunning: 0
 --- !u!1 &1732611858941793923

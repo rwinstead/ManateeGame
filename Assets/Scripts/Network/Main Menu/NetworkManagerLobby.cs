@@ -22,7 +22,7 @@ public class NetworkManagerLobby : NetworkManager
     [SerializeField] private NetworkGamePlayer gamePlayerPrefab = null;
     [SerializeField] private GameObject playerSpawnSystem = null;
 
-    private string selectedMap = "MarbleRun_Ryan_networked";
+    private string selectedMap = "MarbleRun_active";
 
     public List<NetworkRoomPlayer> RoomPlayers { get; } = new List<NetworkRoomPlayer>();
 
@@ -211,21 +211,17 @@ public class NetworkManagerLobby : NetworkManager
 
         if(mapName == 0)
         {
-            selectedMap = "MarbleRun_Ryan_networked";
+            selectedMap = "MarbleRun_active";
         }
 
         if(mapName == 1)
         {
-            selectedMap = "Racing_Multi_networked";
+            selectedMap = "Racing01_active";
         }
 
         if(mapName == 2)
         {
-            selectedMap = "Racing02_networked";
-        }
-        if(mapName == 3)
-        {
-            selectedMap = "JoshRacing01";
+            selectedMap = "Racing02_active";
         }
 
     }

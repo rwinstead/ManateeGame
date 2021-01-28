@@ -3137,13 +3137,11 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Map 1
+    - m_Text: Marble Run
       m_Image: {fileID: 0}
-    - m_Text: Map 2
+    - m_Text: Racing01
       m_Image: {fileID: 0}
-    - m_Text: Map 3
-      m_Image: {fileID: 0}
-    - m_Text: Josh's Map
+    - m_Text: Racing02
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

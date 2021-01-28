@@ -5,27 +5,36 @@ using System;
 using Mirror;
 using TMPro;
 
-public class overlord : NetworkBehaviour
+public class Overlord : NetworkBehaviour
 {
+    /* This class currently only handles the session Time To Beat
+     * but is intended to ultimately handle elements that require
+     * comparing variables between all players
+     * i.e. scoring, leaderboards
+     */
+
+
     [SyncVar]
     public float TimeToBeat = 9999999;
-
-    public TMP_Text TimeToBeatText;
+    [SyncVar]
+    public bool RunTimerEnabled = true;
 
     public NetworkManagerLobby NetworkMan;
     public List<NetworkGamePlayer> PlayerList;
-    
-    
+
+    public TMP_Text TimeToBeatText;
+
     // Start is called before the first frame update
     void Start()
     {
+        //The NetworkManagerLobby object contains the list of NetworkGamePlayer objects
+        //Used to reference permenant variables associated with the player
         NetworkMan = GameObject.FindObjectOfType<NetworkManagerLobby>();
         PlayerList = NetworkMan.GamePlayers;
-        Debug.Log(NetworkMan.thisGuy);
 
         TimeToBeatText = GameObject.Find("TimeToBeatUI").GetComponent<TMP_Text>();
 
-        //Debug.Log("Number of Players: " + PlayerList.Count);
+
         foreach (NetworkGamePlayer player in PlayerList)
         {
             Debug.Log("Wecome Player: "+player.displayName);

@@ -5,6 +5,10 @@ using Mirror;
 
 public class LinkToGamePlayer : NetworkBehaviour
 {
+    /*  This script is attached to a player controller to 
+     *  find and create a link to the NetworkGamePlayer
+     *  associated with it.
+     */
 
     public NetworkGamePlayer thisPlayer;
     public string myName = "George";
@@ -23,7 +27,7 @@ public class LinkToGamePlayer : NetworkBehaviour
             {
                 thisPlayer = player;
                 myName = player.displayName;
-                Debug.Log("Hello! My Name is " + thisPlayer.displayName);
+                //Debug.Log("Hello! My Name is " + thisPlayer.displayName);
             }
 
         }

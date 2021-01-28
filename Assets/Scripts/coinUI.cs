@@ -17,7 +17,6 @@ public class coinUI : MonoBehaviour
 
     private void updateCoinCount()
     {
-
         coinCount++;
         coinCountText.text = "Coins: " + coinCount;
 
