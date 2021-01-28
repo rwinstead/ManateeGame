@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
+using System;
 using UnityEngine.UI;
 
 public class NetworkGamePlayer : NetworkBehaviour
@@ -11,10 +12,17 @@ public class NetworkGamePlayer : NetworkBehaviour
     [SyncVar]
     public string displayName = "Loading...";
 
+    public Guid playerID;
     public float currentRunStartTime = 0;
     public float currentRunEndTime = 0;
     public float bestRunTimeThisSession = 0;
 
+    public NetworkGamePlayer()
+    {
+        playerID = System.Guid.NewGuid();    
+        
+    }
+    
     private NetworkManagerLobby room;
 
     private NetworkManagerLobby Room
