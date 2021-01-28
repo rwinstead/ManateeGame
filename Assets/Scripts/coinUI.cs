@@ -22,5 +22,10 @@ public class coinUI : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        coinManager.collectCoin -= updateCoinCount;
+    }
+
 
 }

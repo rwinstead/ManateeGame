@@ -2471,7 +2471,7 @@ MonoBehaviour:
   showDebugMessages: 0
   serverTickRate: 30
   offlineScene: 
-  onlineScene: Assets/Scenes/MainMenu.unity
+  onlineScene: 
   transport: {fileID: 923823446}
   networkAddress: localhost
   maxConnections: 4
@@ -2483,8 +2483,9 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
+  thisGuy: 42
   minPlayers: 1
-  menuScene: Assets/Scenes/MainMenu.unity
+  menuScene: Assets/Scenes/ActiveScenes/MainMenu.unity
   roomPlayerPrefab: {fileID: 6039632768249002908, guid: 42b27dc672af65d48b5eaf0e42e72363,
     type: 3}
   gamePlayerPrefab: {fileID: 2500694406349195492, guid: 486f8c6c02bf8c945b3c7798cabe71e9,
