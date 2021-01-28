@@ -66,8 +66,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3787d271e467e443493ce1845b4bf774, type: 2}
+  m_sharedMaterial: {fileID: 2582468696588787632, guid: 3787d271e467e443493ce1845b4bf774,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -293,9 +294,8 @@ GameObject:
   - component: {fileID: 8612258999665087917}
   - component: {fileID: 8612258999665087916}
   - component: {fileID: 8612258999665087915}
-  - component: {fileID: 8612258999665087919}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HUD_InGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,19 +386,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8612258999665087919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8612258999665087914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61c93d08d926bf24db4cd6c30741f851, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisGuy: 0
 --- !u!1 &8612258999781567619
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,8 +526,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3787d271e467e443493ce1845b4bf774, type: 2}
+  m_sharedMaterial: {fileID: 2582468696588787632, guid: 3787d271e467e443493ce1845b4bf774,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -672,8 +660,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3787d271e467e443493ce1845b4bf774, type: 2}
+  m_sharedMaterial: {fileID: 2582468696588787632, guid: 3787d271e467e443493ce1845b4bf774,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

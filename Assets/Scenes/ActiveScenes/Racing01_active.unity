@@ -2352,8 +2352,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 806484950}
-  - component: {fileID: 806484949}
   - component: {fileID: 806484951}
+  - component: {fileID: 806484949}
   m_Layer: 0
   m_Name: Overlord
   m_TagString: Untagged

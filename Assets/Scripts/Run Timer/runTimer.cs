@@ -20,6 +20,10 @@ public class runTimer : NetworkBehaviour
     public float currentRunTime = 0;
     public bool isRunning = false;
 
+    public Color32 RunningColor = new Color32(255, 255, 255, 255);
+    public Color32 SuccessColor = new Color32(0, 255, 0, 255);
+    public Color32 FailColor = new Color32(255, 255, 255, 255);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +76,7 @@ public class runTimer : NetworkBehaviour
                 {
                     currentRunTime = 0;
                     isRunning = true;
+                    runTimeText.color = new Color32(255,255,255,255);
                 }
             }
         }
@@ -93,11 +98,13 @@ public class runTimer : NetworkBehaviour
                         bestRunTimeThisSession = currentRunTime;
                         bestRunTimeText.text = "B: " + bestRunTimeThisSession.ToString("n2");
                         CMD_reportRunTime(thisPlayer.displayName, bestRunTimeThisSession);
+                        runTimeText.color = new Color32(0, 255, 0, 255);
                     }
                 }
                 else
                 {
                     //Do somehing on failed run (death/timeout/etc)
+                    runTimeText.color = new Color32(255, 0, 0, 255);
                 }
             }
         }

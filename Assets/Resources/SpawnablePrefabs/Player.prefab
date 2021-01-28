@@ -589,7 +589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  enabled: 0
+  isEnabled: 0
   bestRunTimeThisSession: 1e+10
   thisPlayer: {fileID: 0}
   currentRunTime: 0
