@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using Mirror;
 using TMPro;
@@ -56,6 +57,25 @@ public class Overlord : NetworkBehaviour
         {
             cRPC_updateTtB("TtB: " + playerName + " " + submissionTime.ToString("n2"));
             TimeToBeat = submissionTime;
+        }
+    }
+
+    public void changeSceneUgly()
+    {
+        if (isServer)
+        {
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "MarbleRun_active":
+                    NetworkMan.ServerChangeScene("Racing01_active");
+                    break;
+                case "Racing01_active":
+                    NetworkMan.ServerChangeScene("Racing02_active");
+                    break;
+                case "Racing02_active":
+                    NetworkMan.ServerChangeScene("MarbleRun_active");
+                    break;
+            }
         }
     }
 
