@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class headFollowMouse : MonoBehaviour
 { 
-
+    /*
     public Camera cam;
     public GameObject camera;
 
@@ -29,6 +29,6 @@ public class headFollowMouse : MonoBehaviour
 
         }
     }
-
+    */
 
 }

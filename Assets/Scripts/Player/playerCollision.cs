@@ -1,54 +1,55 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class playerCollision : MonoBehaviour
+
+public class playerCollision : NetworkBehaviour
 {
 
     //[SerializeField] private float knockbackForce = 5f;
 
-    //[SerializeField] private Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
 
-    private bool hasCollided = false;
+    public BallMove ballMove;
 
-   // private float collisionForce;
-
-
-    private void OnCollisionEnter(Collision collision)
+    
+    public void handleCollision(Collision collision)
     {
-        //Debug.Log(collision.gameObject);
-
-        if (collision.gameObject.tag == "Player" && !hasCollided)
+      if(!isServer) { return; }   
+        if (collision.gameObject.tag == "Player")
         {
-            hasCollided = true;
+
+            NetworkIdentity target = collision.gameObject.GetComponentInParent<NetworkIdentity>();
+
+            float otherVelocity = target.GetComponent<BallMove>().velocityBeforeCollision;
+            Debug.Log(otherVelocity);
+
+            Rigidbody target_rb = collision.gameObject.GetComponent<Rigidbody>();
 
 
+            Vector3 dir = (rb.position - collision.gameObject.GetComponent<Rigidbody>().position).normalized;
 
-            //collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.relativeVelocity, ForceMode.Impulse);
-            /*
-            Debug.Log(collision.relativeVelocity);
-
-            collisionForce = knockbackForce * collision.relativeVelocity.magnitude;
-
-            Debug.Log(collisionForce);
+            float relativeVelocity = collision.relativeVelocity.magnitude;
 
 
-            
-            Debug.Log("hit other player");
-            Vector3 dir = collision.contacts[0].point - transform.position;
+            relativeVelocity = Mathf.Clamp(relativeVelocity, .1f, 5f);
+            float velocityMagnitude = Mathf.Clamp(ballMove.velocityBeforeCollision, .1f, 100f);
 
-            dir = -dir.normalized;
+            Debug.Log("you were hit by " + otherVelocity);
 
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce * rb.velocity, ForceMode.Impulse);
-            rb.AddForce(dir, ForceMode.Impulse);
-            */
+
+            RpcAddForce(dir, otherVelocity);
+
+
         }
 
     }
 
-    private void OnCollisionExit(Collision collision)
+    [ClientRpc]
+    public void RpcAddForce(Vector3 dir, float vel)
     {
-        hasCollided = false;
+        rb.AddForce(dir * vel/2f, ForceMode.Impulse);
     }
 
 

@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1732611858038748752}
   - component: {fileID: 1732611858038748755}
   - component: {fileID: 1732611858038748754}
-  - component: {fileID: 4745982815926258446}
+  - component: {fileID: 1995877722737907026}
   m_Layer: 0
   m_Name: ball
   m_TagString: Player
@@ -191,10 +191,10 @@ Rigidbody:
   m_AngularDrag: 0.3
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &4745982815926258446
+--- !u!114 &1995877722737907026
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,9 +203,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1732611858038748767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d88523aaccad7c48af1266f78c37258, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a5a09b917d578048858df9132b90848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pc: {fileID: 6086793574153721914}
 --- !u!1 &1732611858081578897
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,11 +380,12 @@ GameObject:
   - component: {fileID: 1962393820}
   - component: {fileID: 2940186117274257043}
   - component: {fileID: 1721922199716516374}
-  - component: {fileID: -2210921288439498677}
   - component: {fileID: -1438752888057291106}
   - component: {fileID: 6227473633288946600}
   - component: {fileID: 4910186011889081741}
   - component: {fileID: 8411315014955983531}
+  - component: {fileID: -4862915304572369618}
+  - component: {fileID: 6086793574153721914}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -456,6 +458,7 @@ MonoBehaviour:
   jumpForce: 13
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  velocityBeforeCollision: 0
 --- !u!114 &2940186117274257043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,24 +492,6 @@ MonoBehaviour:
   cam: {fileID: 0}
   turnSmoothTime: 0.1
   manatee: {fileID: 1732611858941793920}
---- !u!114 &-2210921288439498677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732611858697422813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f032128052c95a46afb0ddd97d994cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.001
-  target: {fileID: 1732611858038748754}
-  lerpVelocityAmount: 100
-  lerpPositionAmount: 100
-  clientAuthority: 1
 --- !u!114 &-1438752888057291106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,6 +571,40 @@ MonoBehaviour:
   FailColor:
     serializedVersion: 2
     rgba: 4294967295
+--- !u!114 &-4862915304572369618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732611858697422813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f032128052c95a46afb0ddd97d994cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  target: {fileID: 1732611858038748754}
+  lerpVelocityAmount: 0.5
+  lerpPositionAmount: 0.5
+  clientAuthority: 1
+--- !u!114 &6086793574153721914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732611858697422813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d88523aaccad7c48af1266f78c37258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  rb: {fileID: 1732611858038748754}
+  ballMove: {fileID: 1962393820}
 --- !u!1 &1732611858941793923
 GameObject:
   m_ObjectHideFlags: 0

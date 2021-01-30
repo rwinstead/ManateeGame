@@ -41,6 +41,9 @@ public class BallMove : NetworkBehaviour
     public float lowJumpMultiplier = 2f;
 
     
+    public float velocityBeforeCollision;
+
+    
     private void Start()
     {
         Physics.gravity = new Vector3(0, gravity, 0);
@@ -122,8 +125,11 @@ public class BallMove : NetworkBehaviour
 
 void FixedUpdate()
 {
+
+        velocityBeforeCollision = rb.velocity.magnitude;
+
         if (!hasAuthority) { return; } // this ensures that player only controls their character on server
-    
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -149,6 +155,15 @@ void FixedUpdate()
             rb.AddForce(Vector3.down * checkGroundAngle.groundAngle * slopeAcceleration, ForceMode.Acceleration);
         }
 
+    }
+
+    public void collisionWithOtherPlayer(Vector3 dir, float force)
+    {
+        //if (!hasAuthority) { return; }
+        {
+            Debug.Log("You were hit. Force " + force + "Dir " + dir);
+            rb.AddForce(dir * force * 3f, ForceMode.Impulse);
+        }
     }
 
 

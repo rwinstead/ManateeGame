@@ -74,7 +74,7 @@ public class NetworkManagerLobby : NetworkManager
         }
 
         //Stops people from joining if game is in progress
-        if ("Assets/Scenes/" + SceneManager.GetActiveScene().name + ".unity" != menuScene)
+        if ("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" != menuScene)
         {
             conn.Disconnect();
             return;
