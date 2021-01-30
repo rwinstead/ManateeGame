@@ -41,7 +41,7 @@ public class BallMove : NetworkBehaviour
     public float lowJumpMultiplier = 2f;
 
     
-    public float velocityBeforeCollision;
+    public Vector3 velocityBeforeCollision;
 
     
     private void Start()
@@ -126,7 +126,7 @@ public class BallMove : NetworkBehaviour
 void FixedUpdate()
 {
 
-        velocityBeforeCollision = rb.velocity.magnitude;
+        velocityBeforeCollision = rb.velocity;
 
         if (!hasAuthority) { return; } // this ensures that player only controls their character on server
 
@@ -156,16 +156,6 @@ void FixedUpdate()
         }
 
     }
-
-    public void collisionWithOtherPlayer(Vector3 dir, float force)
-    {
-        //if (!hasAuthority) { return; }
-        {
-            Debug.Log("You were hit. Force " + force + "Dir " + dir);
-            rb.AddForce(dir * force * 3f, ForceMode.Impulse);
-        }
-    }
-
 
     // THIS SECTION CHECKS FOR THE GROUND VIA COLLISION *****************************
     /*

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1732611857668612024}
   - component: {fileID: 1732611857668612030}
   - component: {fileID: 1732611857668612025}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: manatee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 1732611858038748752}
   - component: {fileID: 1732611858038748755}
   - component: {fileID: 1732611858038748754}
-  - component: {fileID: 1995877722737907026}
-  m_Layer: 0
+  - component: {fileID: 2608610851670745403}
+  m_Layer: 11
   m_Name: ball
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -113,7 +113,8 @@ Transform:
   m_LocalRotation: {x: -0.71428335, y: 0, z: 0, w: 0.69985664}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 99.999985}
-  m_Children: []
+  m_Children:
+  - {fileID: 7842667031494954639}
   m_Father: {fileID: 1732611858697422802}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -91.169, y: 0, z: 0}
@@ -173,7 +174,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732611858038748767}
   m_Material: {fileID: 13400000, guid: 07f1ac24571eac248b255786738f88eb, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.03355867
@@ -194,7 +195,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &1995877722737907026
+--- !u!114 &2608610851670745403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5a09b917d578048858df9132b90848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pc: {fileID: 6086793574153721914}
+  Pc: {fileID: 6086793574153721914}
 --- !u!1 &1732611858081578897
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1732611858081578903}
   - component: {fileID: 1732611858081578902}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +272,7 @@ GameObject:
   - component: {fileID: 1732611858599555685}
   - component: {fileID: 1732611858599555684}
   - component: {fileID: 1732611858599555687}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,6 +387,7 @@ GameObject:
   - component: {fileID: 8411315014955983531}
   - component: {fileID: -4862915304572369618}
   - component: {fileID: 6086793574153721914}
+  - component: {fileID: -573713523174116919}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -458,7 +460,7 @@ MonoBehaviour:
   jumpForce: 13
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
-  velocityBeforeCollision: 0
+  velocityBeforeCollision: {x: 0, y: 0, z: 0}
 --- !u!114 &2940186117274257043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,8 +588,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   target: {fileID: 1732611858038748754}
-  lerpVelocityAmount: 0.5
-  lerpPositionAmount: 0.5
+  lerpVelocityAmount: 0.55
+  lerpPositionAmount: 0.55
   clientAuthority: 1
 --- !u!114 &6086793574153721914
 MonoBehaviour:
@@ -603,8 +605,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  knockbackForce: 1
   rb: {fileID: 1732611858038748754}
   ballMove: {fileID: 1962393820}
+--- !u!114 &-573713523174116919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732611858697422813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  target: {fileID: 7842667031494954639}
 --- !u!1 &1732611858941793923
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1732611858941793920}
   - component: {fileID: 1732611858941793921}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: manatee_parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -661,7 +683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1732611858969351208}
   - component: {fileID: 1732611858969351209}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Groundcheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,3 +721,47 @@ MonoBehaviour:
     m_Bits: 256
   groundCheckDistance: 3
   groundAngle: 0
+--- !u!1 &6428815046147851771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7842667031494954639}
+  - component: {fileID: 8675582281094150422}
+  m_Layer: 10
+  m_Name: PlayerCollider
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7842667031494954639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428815046147851771}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1732611858038748758}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &8675582281094150422
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428815046147851771}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.03355867
+  m_Center: {x: 0.000000007450581, y: -0.0000000074505815, z: -0.0000000614673}
