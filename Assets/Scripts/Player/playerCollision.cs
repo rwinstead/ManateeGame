@@ -47,23 +47,46 @@ public class playerCollision : NetworkBehaviour
 
         if (Mathf.Abs(otherVelocity.x) > Mathf.Abs(myVelocity.x))
         {
-            resultant.x = Mathf.Abs(otherVelocity.x) - Mathf.Abs(myVelocity.x);
-            if (otherVelocity.x < 0) resultant.x *= -1f;
 
+            if ((otherVelocity.x < 0 && myVelocity.x > 0) || (otherVelocity.x > 0 && myVelocity.x < 0))
+            {
+                resultant.x = otherVelocity.x * .8f;
+            }
+
+            else
+            {
+                resultant.x = Mathf.Abs(otherVelocity.x) - Mathf.Abs(myVelocity.x);
+                if (otherVelocity.x < 0) resultant.x *= -1f;
+            }
         }
 
         if (Mathf.Abs(otherVelocity.y) > Mathf.Abs(myVelocity.y))
         {
-            resultant.y = Mathf.Abs(otherVelocity.y) - Mathf.Abs(myVelocity.y);
-            if (otherVelocity.y < 0) resultant.y *= -1f;
 
+            if ((otherVelocity.y < 0 && myVelocity.y > 0) || (otherVelocity.y > 0 && myVelocity.y < 0))
+            {
+                resultant.y = otherVelocity.y * .8f;
+            }
+
+            else
+            {
+                resultant.y = Mathf.Abs(otherVelocity.y) - Mathf.Abs(myVelocity.y);
+                if (otherVelocity.y < 0) resultant.y *= -1f;
+            }
         }
 
         if (Mathf.Abs(otherVelocity.z) > Mathf.Abs(myVelocity.z))
         {
-            resultant.z = Mathf.Abs(otherVelocity.z) - Mathf.Abs(myVelocity.z);
-            if (otherVelocity.z < 0) resultant.z *= -1f;
+            if ((otherVelocity.z < 0 && myVelocity.z > 0) || (otherVelocity.z > 0 && myVelocity.z < 0))
+            {
+                resultant.z = otherVelocity.z * .8f;
+            }
 
+            else
+            {
+                resultant.z = Mathf.Abs(otherVelocity.z) - Mathf.Abs(myVelocity.z);
+                if (otherVelocity.z < 0) resultant.z *= -1f;
+            }
         }
 
         return resultant;
