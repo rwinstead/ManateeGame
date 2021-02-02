@@ -104,13 +104,6 @@ public class BallMove : NetworkBehaviour
                 rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             }
 
-            if (Input.GetButtonDown("ResetCharacter"))
-                {
-                    Debug.Log("Reset!");
-                    GetComponentInParent<PlayerRespawn>().Respawn();
-                    GetComponentInParent<runTimer>().endRun(false);
-                }
-
             if (rb.velocity.y < 0)
             {
                 rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -120,7 +113,19 @@ public class BallMove : NetworkBehaviour
             {
                 rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
-        
+
+        if (Input.GetButtonDown("ResetCharacter"))
+        {
+            Debug.Log("Reset!");
+            GetComponentInParent<PlayerRespawn>().Respawn();
+            GetComponentInParent<runTimer>().endRun(false);
+        }
+
+        if (Input.GetButtonDown("Debug Next"))
+        {
+            GameObject.FindObjectOfType<Overlord>().changeSceneUgly();
+        }
+
     }
 
 void FixedUpdate()
