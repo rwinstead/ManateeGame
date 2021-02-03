@@ -60,6 +60,14 @@ public class playerCollision : NetworkBehaviour
             }
         }
 
+        else
+        {
+            if ((otherVelocity.x < 0 && myVelocity.x > 0) || (otherVelocity.x > 0 && myVelocity.x < 0))
+            {
+                resultant.x = otherVelocity.x * .65f;
+            }
+        }
+
         if (Mathf.Abs(otherVelocity.y) > Mathf.Abs(myVelocity.y))
         {
 
@@ -75,6 +83,14 @@ public class playerCollision : NetworkBehaviour
             }
         }
 
+        else
+        {
+            if ((otherVelocity.y < 0 && myVelocity.y > 0) || (otherVelocity.y > 0 && myVelocity.y < 0))
+            {
+                resultant.y = otherVelocity.y * .65f;
+            }
+        }
+
         if (Mathf.Abs(otherVelocity.z) > Mathf.Abs(myVelocity.z))
         {
             if ((otherVelocity.z < 0 && myVelocity.z > 0) || (otherVelocity.z > 0 && myVelocity.z < 0))
@@ -86,6 +102,14 @@ public class playerCollision : NetworkBehaviour
             {
                 resultant.z = Mathf.Abs(otherVelocity.z) - Mathf.Abs(myVelocity.z);
                 if (otherVelocity.z < 0) resultant.z *= -1f;
+            }
+        }
+
+        else
+        {
+            if ((otherVelocity.z < 0 && myVelocity.z > 0) || (otherVelocity.z > 0 && myVelocity.z < 0))
+            {
+                resultant.z = otherVelocity.z * .65f;
             }
         }
 
