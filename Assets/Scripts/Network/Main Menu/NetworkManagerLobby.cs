@@ -73,24 +73,25 @@ public class NetworkManagerLobby : NetworkManager
             return;
         }
 
-        //Stops people from joining if game is in progress
+        //Stops people from joining if game is in progress. Commented out for testing.
+
+        /*
+
         if ("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" != menuScene)
         {
             conn.Disconnect();
             return;
         }
 
+        */
+
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
-        //base.OnServerAddPlayer(conn);
-        // Debug.Log(SceneManager.GetActiveScene());
-        // Debug.Log(menuScene);
-        //Debug.Log(SceneManager.GetActiveScene().name == menuScene);
 
-        if("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene) //only add player to lobby if we're in the menu screen
-        {
+        //if("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene) //only add player to lobby if we're in the menu screen
+        
 
             bool isLeader = RoomPlayers.Count == 0; //Room leader if you're first to join
 
@@ -100,7 +101,7 @@ public class NetworkManagerLobby : NetworkManager
             roomPlayerInstance.IsLeader = isLeader;
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
-        }
+        
 
 
     }
@@ -110,11 +111,20 @@ public class NetworkManagerLobby : NetworkManager
 
         if (conn.identity != null)
         {
-            var player = conn.identity.GetComponent<NetworkRoomPlayer>(); //Refrence to the player who disconnected
+            var player = conn.identity.GetComponent<NetworkBehaviour>(); //Refrence to the player who disconnected
 
-            RoomPlayers.Remove(player); //Removes disconnected player from list of current players
+            if (player is NetworkRoomPlayer roomPlayer)
+            {
 
-            NotifyPlayersOfReadyState();
+                RoomPlayers.Remove(roomPlayer); //Removes disconnected player from list of current players
+
+                NotifyPlayersOfReadyState();
+            }
+
+            else if (player is NetworkGamePlayer gamePlayer)
+            {
+                GamePlayers.Remove(gamePlayer);
+            }
 
         }
 
@@ -123,8 +133,10 @@ public class NetworkManagerLobby : NetworkManager
 
     public override void OnStopServer()
     {
-        //base.OnStopServer();
+        
         RoomPlayers.Clear();
+        GamePlayers.Clear();
+        //base.OnStopServer();
     }
 
     public void NotifyPlayersOfReadyState()
@@ -174,8 +186,10 @@ public class NetworkManagerLobby : NetworkManager
         {
             for (int i = RoomPlayers.Count -1; i >= 0; i--)
             {
+                Debug.Log("Room player number: " + i);
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(gamePlayerPrefab);
+                if (i == 0) { gameplayerInstance.isLeader = true; }
                 gameplayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
 
                 NetworkServer.Destroy(conn.identity.gameObject);

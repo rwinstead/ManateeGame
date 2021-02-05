@@ -17,6 +17,8 @@ public class NetworkGamePlayer : NetworkBehaviour
     public float currentRunEndTime = 0;
     public float bestRunTimeThisSession = 0;
 
+    public bool isLeader;
+
     public NetworkGamePlayer()
     {
         playerID = System.Guid.NewGuid();    
@@ -25,7 +27,7 @@ public class NetworkGamePlayer : NetworkBehaviour
     
     private NetworkManagerLobby room;
 
-    private NetworkManagerLobby Room
+    public NetworkManagerLobby Room
     {
         get
         {
@@ -60,7 +62,13 @@ public class NetworkGamePlayer : NetworkBehaviour
         this.displayName = displayName;
     }
 
+    [Server]
 
+    public bool GetIsLeader()
+    {
+        if (isServer) return true;
+        return false;
+    }
 
 
 

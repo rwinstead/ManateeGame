@@ -10,6 +10,16 @@ public class MainMenu : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject landingPagePanel = null;
 
+    private void OnEnable()
+    {
+        if(networkManager == null)
+        {
+            networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerLobby>();
+        }
+
+        Debug.Log("Start was called in main menu | " + networkManager);
+    }
+
     public void HostLobby()
     {
         networkManager.StartHost();

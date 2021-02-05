@@ -14,6 +14,13 @@ public class JoinLobbyMenu : MonoBehaviour
     [SerializeField] private TMP_InputField ipAdressInputField;
     [SerializeField] private Button joinButton = null;
 
+    private void Start()
+    {
+        if (networkManager == null)
+        {
+            networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerLobby>();
+        }
+    }
 
     private void OnEnable()
     {

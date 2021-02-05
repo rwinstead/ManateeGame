@@ -28,10 +28,11 @@ public class PlayerSpawnSystem : NetworkBehaviour
         NetworkManagerLobby.OnServerReadied += SpawnPlayer;
     }
 
-    [ServerCallback]
+    //[Server]
 
     private void OnDestroy()
     {
+        Debug.Log("Removing player spawnage");
         NetworkManagerLobby.OnServerReadied -= SpawnPlayer;
     }
 
