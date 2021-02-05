@@ -13,13 +13,13 @@ public class LinkToGamePlayer : NetworkBehaviour
     public NetworkGamePlayer thisPlayer;
     public string myName = "George";
     
-    public NetworkManagerLobby NetworkMan;
+    public NetworkManagerMG NetworkMan;
     public List<NetworkGamePlayer> PlayerList;
     // Start is called before the first frame update
     void Awake()
     {
 
-        NetworkMan = GameObject.FindObjectOfType<NetworkManagerLobby>();
+        NetworkMan = GameObject.FindObjectOfType<NetworkManagerMG>();
         PlayerList = NetworkMan.GamePlayers;
         foreach (NetworkGamePlayer player in PlayerList)
         {

@@ -38,9 +38,9 @@ public class NetworkRoomPlayer : NetworkBehaviour
         }
     }
 
-    private NetworkManagerLobby room;
+    private NetworkManagerMG room;
 
-    private NetworkManagerLobby Room
+    private NetworkManagerMG Room
     {
         get
         {
@@ -49,7 +49,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
                 return room;
             }
 
-            return room = NetworkManager.singleton as NetworkManagerLobby;
+            return room = NetworkManager.singleton as NetworkManagerMG;
         }
     }
 

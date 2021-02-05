@@ -6,13 +6,13 @@ using Mirror;
 
 public class InGameMenuManager : MonoBehaviour
 {
-    private NetworkManagerLobby NetworkManager;
+    private NetworkManagerMG NetworkManager;
     
     public bool isLeader;
 
     private void Start()
     {
-            NetworkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerLobby>();           
+            NetworkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerMG>();           
     }
 
     public void CloseGameMenu()

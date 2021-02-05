@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using System;
 
-public class NetworkManagerLobby : NetworkManager
+public class NetworkManagerMG : NetworkManager
 {
 
     //just using this to test connection
