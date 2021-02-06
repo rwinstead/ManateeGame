@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpinnersFast : MonoBehaviour
 {
 
-    private float speed = 6f;
+    private float speed = 4.1f;
     // Start is called before the first frame update
     void Start()
     {
