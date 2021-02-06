@@ -25,14 +25,15 @@ public class PlayerSpawnSystem : NetworkBehaviour
     public override void OnStartServer()
     {
         Debug.Log("Spawning a player!!!!!!!!!");
-        NetworkManagerLobby.OnServerReadied += SpawnPlayer;
+        NetworkManagerMG.OnServerReadied += SpawnPlayer;
     }
 
-    [ServerCallback]
+    //[Server]
 
     private void OnDestroy()
     {
-        NetworkManagerLobby.OnServerReadied -= SpawnPlayer;
+        Debug.Log("Removing player spawnage");
+        NetworkManagerMG.OnServerReadied -= SpawnPlayer;
     }
 
     public void SpawnPlayer(NetworkConnection conn)

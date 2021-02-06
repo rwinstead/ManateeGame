@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1127390150981178004}
   - component: {fileID: 8476555888386858020}
   - component: {fileID: 2500694406349195492}
+  - component: {fileID: -1755838047329059877}
   m_Layer: 0
   m_Name: GamePlayer
-  m_TagString: Untagged
+  m_TagString: GamePlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,3 +63,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  displayName: Loading...
+  currentRunStartTime: 0
+  currentRunEndTime: 0
+  bestRunTimeThisSession: 0
+  isLeader: 0
+--- !u!114 &-1755838047329059877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8935487997522613765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584e4c370ec6dc94db9a49ca364c671b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InGameMenuPrefab: {fileID: 5073060138296689219, guid: 2924c251116296e43887ee8719b7fb77,
+    type: 3}

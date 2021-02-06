@@ -8,6 +8,9 @@ TagManager:
   - Cinemachine
   - Start
   - coinText
+  - InGameMenu
+  - GamePlayer
+  - NetworkManager
   layers:
   - Default
   - TransparentFX

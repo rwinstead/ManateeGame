@@ -588,8 +588,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   target: {fileID: 1732611858038748754}
-  lerpVelocityAmount: 0.55
-  lerpPositionAmount: 0.55
+  lerpVelocityAmount: 0.5
+  lerpPositionAmount: 0.5
   clientAuthority: 1
 --- !u!114 &6086793574153721914
 MonoBehaviour:

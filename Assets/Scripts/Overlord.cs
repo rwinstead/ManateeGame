@@ -20,7 +20,7 @@ public class Overlord : NetworkBehaviour
     [SyncVar]
     public bool RunTimerEnabled = true;
 
-    public NetworkManagerLobby NetworkMan;
+    public NetworkManagerMG NetworkMan;
     public List<NetworkGamePlayer> PlayerList;
 
     public TMP_Text TimeToBeatText;
@@ -28,9 +28,9 @@ public class Overlord : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //The NetworkManagerLobby object contains the list of NetworkGamePlayer objects
+        //The NetworkManagerMG object contains the list of NetworkGamePlayer objects
         //Used to reference permenant variables associated with the player
-        NetworkMan = GameObject.FindObjectOfType<NetworkManagerLobby>();
+        NetworkMan = GameObject.FindObjectOfType<NetworkManagerMG>();
         PlayerList = NetworkMan.GamePlayers;
 
         TimeToBeatText = GameObject.Find("TimeToBeatUI").GetComponent<TMP_Text>();
