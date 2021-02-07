@@ -17,7 +17,20 @@ public class NetworkGamePlayer : NetworkBehaviour
     public float currentRunEndTime = 0;
     public float bestRunTimeThisSession = 0;
 
+    public uint myNetId;
+
     public bool isLeader;
+
+    private NetworkScoreKeeper ScoreKeeper;
+
+    private void Start()
+    {
+        //if(!hasAuthority) { return; }
+        myNetId = gameObject.GetComponent<NetworkIdentity>().netId;
+
+        GiveScoreKeeperNetID();
+
+    }
 
     public NetworkGamePlayer()
     {
@@ -46,7 +59,6 @@ public class NetworkGamePlayer : NetworkBehaviour
 
         //base.OnStartClient();
         Room.GamePlayers.Add(this);
-
     }
 
     public override void OnStopClient()
@@ -70,9 +82,19 @@ public class NetworkGamePlayer : NetworkBehaviour
         return false;
     }
 
+    [Server]
+    public void GiveScoreKeeperNetID()
+    {
+        ScoreKeeper = GameObject.FindGameObjectWithTag("ScoreKeeper").GetComponent<NetworkScoreKeeper>();
+        ScoreKeeper.AddPlayerOnStart(myNetId, displayName);
+    }
 
-
-
+    [Command]
+    public void FinishedRace()
+    {
+        ScoreKeeper = GameObject.FindGameObjectWithTag("ScoreKeeper").GetComponent<NetworkScoreKeeper>();
+        ScoreKeeper.FinishedRace(myNetId);
+    }
 
 
 

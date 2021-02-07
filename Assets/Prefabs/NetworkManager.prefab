@@ -71,6 +71,8 @@ MonoBehaviour:
     type: 3}
   playerSpawnSystem: {fileID: 8421490746876649043, guid: 34eb7e01806ee1d4f8e301fd5ef9b3d3,
     type: 3}
+  ScoreKeeperPrefab: {fileID: 275197252316248217, guid: 7b0e5a6b497dea541b685eabd25e5132,
+    type: 3}
 --- !u!114 &6154472011054405803
 MonoBehaviour:
   m_ObjectHideFlags: 0

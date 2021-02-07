@@ -11,6 +11,7 @@ TagManager:
   - InGameMenu
   - GamePlayer
   - NetworkManager
+  - ScoreKeeper
   layers:
   - Default
   - TransparentFX

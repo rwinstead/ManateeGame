@@ -33,6 +33,12 @@ public class LinkToGamePlayer : NetworkBehaviour
         }
     }
 
+    public void FinishedRace()
+    {
+        if(!hasAuthority) { return; }
+        thisPlayer.FinishedRace();
+    }
+
     // Update is called once per frame
     void Update()
     {

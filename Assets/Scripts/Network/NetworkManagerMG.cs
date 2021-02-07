@@ -21,6 +21,7 @@ public class NetworkManagerMG : NetworkManager
     [Header("In-Game")]
     [SerializeField] private NetworkGamePlayer gamePlayerPrefab = null;
     [SerializeField] private GameObject playerSpawnSystem = null;
+    [SerializeField] private GameObject ScoreKeeperPrefab = null;
 
     private string selectedMap = "MarbleRun_active";
 
@@ -196,6 +197,10 @@ public class NetworkManagerMG : NetworkManager
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject, true);
 
             }
+
+            var ScoreKeeperInstance = Instantiate(ScoreKeeperPrefab);
+            NetworkServer.Spawn(ScoreKeeperInstance);
+
         }
 
             base.ServerChangeScene(newSceneName);
@@ -207,6 +212,7 @@ public class NetworkManagerMG : NetworkManager
         {
             GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);
+
         }
     }
 
