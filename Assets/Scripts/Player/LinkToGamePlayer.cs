@@ -36,7 +36,7 @@ public class LinkToGamePlayer : NetworkBehaviour
     public void FinishedRace()
     {
         if(!hasAuthority) { return; }
-        thisPlayer.FinishedRace();
+        thisPlayer.CmdFinishedRace();
     }
 
     // Update is called once per frame

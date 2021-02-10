@@ -16,8 +16,6 @@ public class MainMenu : MonoBehaviour
         {
             networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerMG>();
         }
-
-        Debug.Log("Start was called in main menu | " + networkManager);
     }
 
     public void HostLobby()

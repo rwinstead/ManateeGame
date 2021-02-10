@@ -27,5 +27,10 @@ public class coinUI : MonoBehaviour
         coinManager.collectCoin -= updateCoinCount;
     }
 
+    private void OnDisable()
+    {
+        coinManager.collectCoin -= updateCoinCount;
+    }
+
 
 }
