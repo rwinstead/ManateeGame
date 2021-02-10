@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class StageStartCountdown : NetworkBehaviour
 {
-    public bool CanPlayerMove;
-
     [SerializeField] private Animator anim;
+
+    public static event Action MovementEnabled;
 
     private NetworkManagerMG room;
     private NetworkManagerMG Room
@@ -27,18 +28,20 @@ public class StageStartCountdown : NetworkBehaviour
     public override void OnStartServer()
     {
         NetworkManagerMG.OnServerReadied += CheckToStartCountdown;
+        NetworkManagerMG.ServerStopped += OnStopServer; //We need this otherwise the script can't unsubscribe from the onserverreadied event above.
     }
 
     public override void OnStopServer()
     {
         NetworkManagerMG.OnServerReadied -= CheckToStartCountdown;
-        base.OnStopServer();
+        NetworkManagerMG.ServerStopped -= OnStopServer;
     }
 
     [ServerCallback]
     private void OnDestroy()
     {
         NetworkManagerMG.OnServerReadied -= CheckToStartCountdown;
+        NetworkManagerMG.ServerStopped -= OnStopServer;
     }
 
     [ServerCallback]
@@ -54,6 +57,7 @@ public class StageStartCountdown : NetworkBehaviour
     {
         foreach(var player in Room.GamePlayers)
         {
+
             if(player.connectionToClient.isReady == false)
             {
                 return;
@@ -68,7 +72,7 @@ public class StageStartCountdown : NetworkBehaviour
 
     [ClientRpc]
 
-    private void RpcStartCountdown()
+    private void RpcStartCountdown() //Enables the animator on the client
     {
         anim.enabled = true;
     }
@@ -76,7 +80,7 @@ public class StageStartCountdown : NetworkBehaviour
     [ClientRpc]
     private void RpcEnableMovement()
     {
-        CanPlayerMove = true;
+        MovementEnabled?.Invoke();
     }
 
 }

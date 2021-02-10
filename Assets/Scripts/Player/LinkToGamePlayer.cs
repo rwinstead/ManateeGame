@@ -15,7 +15,7 @@ public class LinkToGamePlayer : NetworkBehaviour
     
     public NetworkManagerMG NetworkMan;
     public List<NetworkGamePlayer> PlayerList;
-    // Start is called before the first frame update
+    
     void Awake()
     {
 
@@ -39,9 +39,6 @@ public class LinkToGamePlayer : NetworkBehaviour
         thisPlayer.CmdFinishedRace();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }

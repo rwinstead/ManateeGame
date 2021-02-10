@@ -33,6 +33,7 @@ public class NetworkManagerMG : NetworkManager
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
     public static event Action<NetworkConnection> OnServerReadied;
+    public static event Action ServerStopped;
 
     public override void OnStartServer()
     {
@@ -135,7 +136,7 @@ public class NetworkManagerMG : NetworkManager
 
     public override void OnStopServer()
     {
-        
+        ServerStopped?.Invoke();
         RoomPlayers.Clear();
         GamePlayers.Clear();
         //base.OnStopServer();
@@ -211,11 +212,11 @@ public class NetworkManagerMG : NetworkManager
     {
         if(sceneName != "MainMenu")
         {
-            GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
-            NetworkServer.Spawn(playerSpawnSystemInstance);
-
             GameObject StageStartCountdownInstance = Instantiate(StageStartCountdown);
             NetworkServer.Spawn(StageStartCountdownInstance);
+
+            GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
+            NetworkServer.Spawn(playerSpawnSystemInstance);
 
             NetworkScoreKeeper.UpdateScorekeeperNewRound();
         }
