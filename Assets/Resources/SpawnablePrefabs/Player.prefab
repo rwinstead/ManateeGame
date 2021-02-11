@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 1732611858038748754}
   - component: {fileID: 2608610851670745403}
   - component: {fileID: 1171000301856578821}
-  - component: {fileID: 7979929698092417282}
   m_Layer: 11
   m_Name: ball
   m_TagString: Player
@@ -226,20 +225,6 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &7979929698092417282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732611858038748767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26fd413e4caf44349a2c393272d1cf8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
 --- !u!1 &1732611858081578897
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,6 +405,7 @@ GameObject:
   - component: {fileID: -4862915304572369618}
   - component: {fileID: 6086793574153721914}
   - component: {fileID: -573713523174116919}
+  - component: {fileID: 8155131170033624871}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -659,6 +645,21 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   target: {fileID: 7842667031494954639}
+--- !u!114 &8155131170033624871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732611858697422813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26fd413e4caf44349a2c393272d1cf8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  PlayerRB: {fileID: 1732611858038748754}
 --- !u!1 &1732611858941793923
 GameObject:
   m_ObjectHideFlags: 0
