@@ -8,6 +8,8 @@ public class StageStartCountdown : NetworkBehaviour
 {
     [SerializeField] private Animator anim;
 
+    [SerializeField] private ServerStageTimer serverStageTimer;
+
     public static event Action MovementEnabled;
 
     private NetworkManagerMG room;
@@ -18,6 +20,11 @@ public class StageStartCountdown : NetworkBehaviour
             if(room != null) {return room;}
             return room = NetworkManager.singleton as NetworkManagerMG;
         }
+    }
+
+    private void Start()
+    {
+        serverStageTimer = GameObject.FindGameObjectWithTag("RaceHUD").GetComponent<ServerStageTimer>();
     }
 
     public void CountdownOver()
@@ -49,6 +56,7 @@ public class StageStartCountdown : NetworkBehaviour
     {
         Debug.Log("Player movement enabled");
         RpcEnableMovement();
+        serverStageTimer.ServerStartTimer();
     }
 
     [Server]

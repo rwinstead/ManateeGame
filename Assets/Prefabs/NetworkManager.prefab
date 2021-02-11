@@ -75,6 +75,8 @@ MonoBehaviour:
     type: 3}
   StageStartCountdown: {fileID: 9169988051184762191, guid: 39aedb7daaf44ca4db107cdac078d2fe,
     type: 3}
+  RaceModeHUD: {fileID: 6373717917840042430, guid: a8e9657c70404914091da6e6462203b6,
+    type: 3}
 --- !u!114 &6154472011054405803
 MonoBehaviour:
   m_ObjectHideFlags: 0

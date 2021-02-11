@@ -23,6 +23,7 @@ public class NetworkManagerMG : NetworkManager
     [SerializeField] private GameObject playerSpawnSystem = null;
     [SerializeField] private GameObject ScoreKeeperPrefab = null;
     [SerializeField] private GameObject StageStartCountdown = null;
+    [SerializeField] private GameObject RaceModeHUD = null;
 
     private string selectedMap = "MarbleRun_active";
 
@@ -202,6 +203,9 @@ public class NetworkManagerMG : NetworkManager
 
             var ScoreKeeperInstance = Instantiate(ScoreKeeperPrefab);
             NetworkServer.Spawn(ScoreKeeperInstance);
+
+            var RaceModeHUDInstance = Instantiate(RaceModeHUD);
+            NetworkServer.Spawn(RaceModeHUDInstance);
 
         }
 

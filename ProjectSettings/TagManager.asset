@@ -12,6 +12,7 @@ TagManager:
   - GamePlayer
   - NetworkManager
   - ScoreKeeper
+  - RaceHUD
   layers:
   - Default
   - TransparentFX
