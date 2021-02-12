@@ -9,39 +9,40 @@ public class NetworkScoreKeeper : NetworkBehaviour
 
     //The dictionary stores NETID (key) of player and a playerdata object (value).
     //The player data class is just an object with lists for collectibles, stage finish positions, and stage times.
-    Dictionary<uint, PlayerData> PlayerScores = new Dictionary<uint, PlayerData>(); 
-    public static int MapIndex = 0;
-    public static int position = 1;
+    Dictionary<uint, PlayerData> PlayerScores = new Dictionary<uint, PlayerData>();
+    public ServerStageTimer stageTimer;
+    private int MapIndex = 0;
+    private int position = 1;
     
 
     class PlayerData
     {
         public List<int> StageCollectibles = new List<int>();
         public List<int> StageFinishPosition = new List<int>();
-        public List<float> StageTime = new List<float>();
-
+        public List<double> StageTime = new List<double>();
     }
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        NetworkManagerMG.ServerChangedLevel += UpdateScorekeeperNewRound;
+        NetworkManagerMG.ServerStopped += UnsubscribeFromEvents;
     }
 
     public void AddPlayerOnStart(uint NetID, string DisplayName)
     {
         PlayerScores[NetID] = new PlayerData();
         PrintDict();
-
     }
 
-    public void FinishedRace(uint NetID, int CollectibleCount, float Time)
+    public void FinishedRace(uint NetID, int CollectibleCount)
     {
         Debug.Log("received coins: " + CollectibleCount);
         if (PlayerScores[NetID].StageFinishPosition.Count < MapIndex) //Make sure that we're loggging the score of the current stage
         {
             PlayerScores[NetID].StageFinishPosition.Add(position);
             position++;
-            PlayerScores[NetID].StageTime.Add(Time);
+            PlayerScores[NetID].StageTime.Add(stageTimer.displayTime);
 
             //Get difference between total collectibles of this stage and last to get collectibles gained for this round
             //but only if it's not the first round
@@ -51,7 +52,8 @@ public class NetworkScoreKeeper : NetworkBehaviour
             }
             else
             {
-                PlayerScores[NetID].StageCollectibles.Add(CollectibleCount - PlayerScores[NetID].StageCollectibles[MapIndex - 2]);
+                int CollectibleListIndex = PlayerScores[NetID].StageCollectibles.Count - 1; // Gets the index of the last item in the list
+                PlayerScores[NetID].StageCollectibles.Add(CollectibleCount - PlayerScores[NetID].StageCollectibles[CollectibleListIndex]);
             }
 
             PrintDict();
@@ -59,14 +61,23 @@ public class NetworkScoreKeeper : NetworkBehaviour
         
     }
 
-    public static void UpdateScorekeeperNewRound()
+    public void UpdateScorekeeperNewRound()
     {
+        Debug.Log("map index is now " + MapIndex);
         MapIndex++;
         position = 1;
     }
 
+    private void UnsubscribeFromEvents()
+    {
+        NetworkManagerMG.ServerChangedLevel -= UpdateScorekeeperNewRound;
+        NetworkManagerMG.ServerStopped -= UnsubscribeFromEvents;
+        Destroy(gameObject);
+    }
 
-    
+
+
+
     private void PrintDict() //Basically makes the dictionaries look like Python dictionary =]
     {
         foreach (KeyValuePair<uint, PlayerData> pair in PlayerScores)

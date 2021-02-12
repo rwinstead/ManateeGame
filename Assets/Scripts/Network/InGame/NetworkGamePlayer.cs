@@ -106,7 +106,7 @@ public class NetworkGamePlayer : NetworkBehaviour
     {
         Debug.Log("sending coins: " + TotalCollectibleCount);
         ScoreKeeper = GameObject.FindGameObjectWithTag("ScoreKeeper").GetComponent<NetworkScoreKeeper>();
-        ScoreKeeper.FinishedRace(myNetId, TotalCollectibleCount, StageTime);
+        ScoreKeeper.FinishedRace(myNetId, TotalCollectibleCount);
     }
 
 

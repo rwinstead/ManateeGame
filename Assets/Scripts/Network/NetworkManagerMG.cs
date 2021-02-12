@@ -35,6 +35,7 @@ public class NetworkManagerMG : NetworkManager
     public static event Action OnClientDisconnected;
     public static event Action<NetworkConnection> OnServerReadied;
     public static event Action ServerStopped;
+    public static event Action ServerChangedLevel;
 
     public override void OnStartServer()
     {
@@ -201,11 +202,12 @@ public class NetworkManagerMG : NetworkManager
 
             }
 
-            var ScoreKeeperInstance = Instantiate(ScoreKeeperPrefab);
-            NetworkServer.Spawn(ScoreKeeperInstance);
-
             var RaceModeHUDInstance = Instantiate(RaceModeHUD);
             NetworkServer.Spawn(RaceModeHUDInstance);
+
+            var ScoreKeeperInstance = Instantiate(ScoreKeeperPrefab);
+            ScoreKeeperInstance.GetComponent<NetworkScoreKeeper>().stageTimer = RaceModeHUDInstance.GetComponent<ServerStageTimer>();
+            NetworkServer.Spawn(ScoreKeeperInstance);
 
         }
 
@@ -222,7 +224,8 @@ public class NetworkManagerMG : NetworkManager
             GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);
 
-            NetworkScoreKeeper.UpdateScorekeeperNewRound();
+            //NetworkScoreKeeper.UpdateScorekeeperNewRound();
+            ServerChangedLevel?.Invoke();
         }
     }
 
