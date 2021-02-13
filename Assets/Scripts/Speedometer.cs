@@ -23,7 +23,7 @@ public class Speedometer : NetworkBehaviour
     {
         if (hasAuthority)
         {
-            speedometerText.text = string.Format("Speed: \n{0:N2}", PlayerRB.velocity.magnitude);
+            speedometerText.text = string.Format("Speed: \n{0:N0}", PlayerRB.velocity.magnitude);
         }
           
     }

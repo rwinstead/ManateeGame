@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Spinners : MonoBehaviour
+public class Rotational : NetworkBehaviour
 {
 
-    public float speed = 100;
+    public float speedX = 0;
+    public float speedY = 0;
+    public float speedZ = 0;
 
     Rigidbody m_Rigidbody;
     Vector3 m_EulerAngleVelocity;
@@ -25,7 +28,7 @@ public class Spinners : MonoBehaviour
     void FixedUpdate()
     {
         
-        m_EulerAngleVelocity = new Vector3(0, speed, 0);
+        m_EulerAngleVelocity = new Vector3(speedX, speedY, speedZ);
         Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.deltaTime);
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * deltaRotation);
     }
