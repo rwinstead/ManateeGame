@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13b01f41e17c4f4990d6708cae4198b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -200
+  speed: -160
 --- !u!64 &177874850
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -944,7 +944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13b01f41e17c4f4990d6708cae4198b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
+  speed: 160
 --- !u!64 &475674839
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1385,7 +1385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13b01f41e17c4f4990d6708cae4198b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
+  speed: 160
 --- !u!64 &919644003
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2018,7 +2018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13b01f41e17c4f4990d6708cae4198b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -200
+  speed: -160
 --- !u!64 &1341927468
 MeshCollider:
   m_ObjectHideFlags: 0
