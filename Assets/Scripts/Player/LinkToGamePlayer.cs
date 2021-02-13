@@ -20,8 +20,7 @@ public class LinkToGamePlayer : NetworkBehaviour
     {
 
         NetworkMan = GameObject.FindObjectOfType<NetworkManagerMG>();
-        PlayerList = NetworkMan.GamePlayers;
-        foreach (NetworkGamePlayer player in PlayerList)
+        foreach (NetworkGamePlayer player in NetworkMan.GamePlayers)
         {
             if (player.hasAuthority)
             {

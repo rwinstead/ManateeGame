@@ -31,7 +31,7 @@ public class Overlord : NetworkBehaviour
         //The NetworkManagerMG object contains the list of NetworkGamePlayer objects
         //Used to reference permenant variables associated with the player
         NetworkMan = GameObject.FindObjectOfType<NetworkManagerMG>();
-        PlayerList = NetworkMan.GamePlayers;
+        //PlayerList = NetworkMan.GamePlayers;
 
         TimeToBeatText = GameObject.Find("TimeToBeatUI").GetComponent<TMP_Text>();
 

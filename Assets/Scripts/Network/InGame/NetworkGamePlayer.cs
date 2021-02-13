@@ -39,10 +39,8 @@ public class NetworkGamePlayer : NetworkBehaviour
     }
     [Command]
     private void CmdupdateCoinCount()
-    {
-       
+    {     
         TotalCollectibleCount++;
-        Debug.Log("coins: " + TotalCollectibleCount);
     }
 
     public NetworkGamePlayer()
@@ -71,7 +69,7 @@ public class NetworkGamePlayer : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
 
         //base.OnStartClient();
-        Room.GamePlayers.Add(this);
+        //Room.GamePlayers.Add(this);
     }
 
     public override void OnStopClient()

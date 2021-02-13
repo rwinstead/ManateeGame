@@ -11,7 +11,7 @@ public class NetworkManagerMG : NetworkManager
 
     //just using this to test connection
     public int thisGuy = 42;
-    
+
     [SerializeField] private int minPlayers = 1;
     [Scene] [SerializeField] private string menuScene = string.Empty;
 
@@ -27,6 +27,7 @@ public class NetworkManagerMG : NetworkManager
 
     private string selectedMap = "MarbleRun_active";
 
+    [SerializeField]
     public List<NetworkRoomPlayer> RoomPlayers { get; } = new List<NetworkRoomPlayer>();
 
     public List<NetworkGamePlayer> GamePlayers { get; } = new List<NetworkGamePlayer>();
@@ -106,7 +107,7 @@ public class NetworkManagerMG : NetworkManager
             roomPlayerInstance.IsLeader = isLeader;
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
-        
+
 
 
     }
@@ -199,6 +200,7 @@ public class NetworkManagerMG : NetworkManager
 
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject, true);
+                GamePlayers.Add(gameplayerInstance);
 
             }
 
@@ -258,8 +260,6 @@ public class NetworkManagerMG : NetworkManager
         }
 
     }
-
-
 
 
 

@@ -37,14 +37,13 @@ public class NetworkScoreKeeper : NetworkBehaviour
 
     public void FinishedRace(uint NetID, int CollectibleCount)
     {
-        Debug.Log("received coins: " + CollectibleCount);
         if (PlayerScores[NetID].StageFinishPosition.Count < MapIndex) //Make sure that we're loggging the score of the current stage
         {
             PlayerScores[NetID].StageFinishPosition.Add(position);
             position++;
             PlayerScores[NetID].StageTime.Add(stageTimer.displayTime);
 
-            //Get difference between total collectibles of this stage and last to get collectibles gained for this round
+            //Get difference between total collectibles of this stage and last total to get collectibles gained for this round
             //but only if it's not the first round
             if (PlayerScores[NetID].StageCollectibles.Count == 0)
             {
@@ -52,8 +51,13 @@ public class NetworkScoreKeeper : NetworkBehaviour
             }
             else
             {
-                int CollectibleListIndex = PlayerScores[NetID].StageCollectibles.Count - 1; // Gets the index of the last item in the list
-                PlayerScores[NetID].StageCollectibles.Add(CollectibleCount - PlayerScores[NetID].StageCollectibles[CollectibleListIndex]);
+                int PreviousCollectibleTotal = 0;
+                foreach (int collectibleScore in PlayerScores[NetID].StageCollectibles)
+                {                    
+                    PreviousCollectibleTotal += collectibleScore;
+                }
+
+                PlayerScores[NetID].StageCollectibles.Add(CollectibleCount - PreviousCollectibleTotal);
             }
 
             PrintDict();
