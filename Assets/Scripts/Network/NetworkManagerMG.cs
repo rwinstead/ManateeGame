@@ -24,10 +24,10 @@ public class NetworkManagerMG : NetworkManager
     [SerializeField] private GameObject ScoreKeeperPrefab = null;
     [SerializeField] private GameObject StageStartCountdown = null;
     [SerializeField] private GameObject RaceModeHUD = null;
+    [SerializeField] private GameObject SyncedDataForClients = null;
 
     private string selectedMap = "MarbleRun_active";
 
-    [SerializeField]
     public List<NetworkRoomPlayer> RoomPlayers { get; } = new List<NetworkRoomPlayer>();
 
     public List<NetworkGamePlayer> GamePlayers { get; } = new List<NetworkGamePlayer>();
@@ -190,6 +190,10 @@ public class NetworkManagerMG : NetworkManager
 
         if ("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene)
         {
+
+            var SyncedServerDataForClientsInstance = Instantiate(SyncedDataForClients);
+            var SyncedDataList = SyncedServerDataForClientsInstance.GetComponent<SyncedServerDataForClients>();
+
             for (int i = RoomPlayers.Count -1; i >= 0; i--)
             {
                 Debug.Log("Room player number: " + i);
@@ -201,15 +205,21 @@ public class NetworkManagerMG : NetworkManager
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject, true);
                 GamePlayers.Add(gameplayerInstance);
-
+                SyncedDataList.PlayerList.Add(gameplayerInstance);
             }
 
             var RaceModeHUDInstance = Instantiate(RaceModeHUD);
-            NetworkServer.Spawn(RaceModeHUDInstance);
-
             var ScoreKeeperInstance = Instantiate(ScoreKeeperPrefab);
+
+            //These references will only work for the server
+            RaceModeHUDInstance.GetComponent<RaceScoreboard>().networkScoreKeeper = ScoreKeeperInstance.GetComponent<NetworkScoreKeeper>();
             ScoreKeeperInstance.GetComponent<NetworkScoreKeeper>().stageTimer = RaceModeHUDInstance.GetComponent<ServerStageTimer>();
+            ScoreKeeperInstance.GetComponent<NetworkScoreKeeper>().raceScoreboard = RaceModeHUDInstance.GetComponent<RaceScoreboard>();
+            
+
             NetworkServer.Spawn(ScoreKeeperInstance);
+            NetworkServer.Spawn(RaceModeHUDInstance);
+            NetworkServer.Spawn(SyncedServerDataForClientsInstance);
 
         }
 
@@ -260,7 +270,5 @@ public class NetworkManagerMG : NetworkManager
         }
 
     }
-
-
 
 }

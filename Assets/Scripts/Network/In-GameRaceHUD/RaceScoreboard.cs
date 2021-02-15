@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using Mirror;
 
-public class RaceScoreboard :NetworkBehaviour
+public class RaceScoreboard : NetworkBehaviour
 {
 
     //Headers in board
@@ -20,12 +20,15 @@ public class RaceScoreboard :NetworkBehaviour
     [SerializeField] private Transform PlayerScoresTemplate;
     [SerializeField] private Transform PlayerScoresBackground;
 
+    public NetworkScoreKeeper networkScoreKeeper;
+
     private int StagesCount = 3;
     private float StageRowWidth = 130;
     private float ScoreHeight = 75;
     private float TotalUIWidth = 0;
 
     [SerializeField]
+    [SyncVar]
     public int NumberOfPlayers;
 
     private NetworkManagerMG room;
@@ -43,10 +46,17 @@ public class RaceScoreboard :NetworkBehaviour
         }
     }
 
-    private void Awake()
+    /*
+     * Getting the # of players must be called in OnEnable. If called in start, the syncvar won't be updated in time
+     * for the client, and it will call start with number of players = 0.
+     */
+    private void OnEnable()
     {
         NumberOfPlayers = Room.GamePlayers.Count;
+    }
 
+    private void Start()
+    {
         float containerWidth = StageRowTransformContainer.GetComponent<RectTransform>().anchoredPosition.x;
         float containerHeight = StageRowTransformContainer.GetComponent<RectTransform>().anchoredPosition.y;
 
@@ -69,8 +79,8 @@ public class RaceScoreboard :NetworkBehaviour
         IncreaseUIWidth();
 
         PlayerScoresBackground.GetComponent<RectTransform>().sizeDelta = new Vector2(TotalUIWidth + 130, ScoreHeight);
-        
 
+        Debug.Log(NumberOfPlayers);
         for (int i = 0; i < NumberOfPlayers; i++)
         {
             var PlayerScoreRow = Instantiate(PlayerScoresTemplate, PlayerScoresContainer);
@@ -85,5 +95,37 @@ public class RaceScoreboard :NetworkBehaviour
         TotalUIWidth += StageRowWidth;
     }
 
+    public void UpdateScoreboard(Dictionary<uint, NetworkScoreKeeper.PlayerData> PlayerScores)
+    {
+        foreach (KeyValuePair<uint, NetworkScoreKeeper.PlayerData> pair in PlayerScores)
+        {
+            string Output = string.Empty;
+            Output = pair.Key.ToString() + ": { Positions: (";
+            //Debug.Log("Key: " + pair.Key);
 
+            foreach (int score in pair.Value.StageFinishPosition)
+            {
+                Output += score + ",";
+                //Debug.Log(score);
+            }
+            Output += ") | Collectibles: (";
+
+            foreach (int collectiblecount in pair.Value.StageCollectibles)
+            {
+                Output += collectiblecount + ",";
+                //Debug.Log(score);
+            }
+
+            Output += ") | Times: (";
+
+            foreach (float time in pair.Value.StageTime)
+            {
+                Output += time + ",";
+                //Debug.Log(score);
+            }
+            Output += ")}";
+            Debug.Log(Output);
+        }
+    }
 }
+

@@ -36,22 +36,32 @@ public class PlayerSpawnSystem : NetworkBehaviour
         NetworkManagerMG.OnServerReadied -= SpawnPlayer;
     }
 
+    [Server]
     public void SpawnPlayer(NetworkConnection conn)
     {
+
         Transform spawnPoint = spawnPoints.ElementAtOrDefault(nextIndex);
 
-        if(spawnPoint == null)
+        GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
+
+        foreach (var item in conn.clientOwnedObjects)
+        {
+            if (item.CompareTag("GamePlayer"))
+            {
+                //playerInstance.GetComponent<LinkToGamePlayer>().SetDisplayName(item.GetComponent<NetworkGamePlayer>().displayName);
+                //playerInstance.GetComponent<LinkToGamePlayer>().SetClientGamePlayer(item.GetComponent<NetworkGamePlayer>());
+            }
+        }
+
+        if (spawnPoint == null)
         {
             Debug.LogError($"Missing spawn point for player {nextIndex}");
             return;
         }
 
-        GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
         NetworkServer.Spawn(playerInstance, conn);
 
         nextIndex++;
-
-
 
     }
 

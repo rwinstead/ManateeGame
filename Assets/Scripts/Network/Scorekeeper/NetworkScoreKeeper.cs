@@ -9,14 +9,17 @@ public class NetworkScoreKeeper : NetworkBehaviour
 
     //The dictionary stores NETID (key) of player and a playerdata object (value).
     //The player data class is just an object with lists for collectibles, stage finish positions, and stage times.
+
     Dictionary<uint, PlayerData> PlayerScores = new Dictionary<uint, PlayerData>();
     public ServerStageTimer stageTimer;
+    public RaceScoreboard raceScoreboard;
     private int MapIndex = 0;
     private int position = 1;
     
 
-    class PlayerData
+    public class PlayerData
     {
+        public string DisplayName = string.Empty;
         public List<int> StageCollectibles = new List<int>();
         public List<int> StageFinishPosition = new List<int>();
         public List<double> StageTime = new List<double>();
@@ -32,6 +35,7 @@ public class NetworkScoreKeeper : NetworkBehaviour
     public void AddPlayerOnStart(uint NetID, string DisplayName)
     {
         PlayerScores[NetID] = new PlayerData();
+        PlayerScores[NetID].DisplayName = DisplayName;
         PrintDict();
     }
 
@@ -60,6 +64,7 @@ public class NetworkScoreKeeper : NetworkBehaviour
                 PlayerScores[NetID].StageCollectibles.Add(CollectibleCount - PreviousCollectibleTotal);
             }
 
+            raceScoreboard.UpdateScoreboard(PlayerScores);
             PrintDict();
         }
         
@@ -87,7 +92,7 @@ public class NetworkScoreKeeper : NetworkBehaviour
         foreach (KeyValuePair<uint, PlayerData> pair in PlayerScores)
         {
             string Output = string.Empty;
-            Output = pair.Key.ToString() + ": { Positions: (";
+            Output = pair.Key.ToString() +" " + pair.Value.DisplayName + " : { Positions: (";
             //Debug.Log("Key: " + pair.Key);
 
             foreach(int score in pair.Value.StageFinishPosition)

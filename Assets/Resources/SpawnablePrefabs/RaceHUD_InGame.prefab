@@ -962,6 +962,7 @@ MonoBehaviour:
   PlayerScoresContainer: {fileID: 6376433593022173516}
   PlayerScoresTemplate: {fileID: 2996444073778510893}
   PlayerScoresBackground: {fileID: 6553517759028843864}
+  NumberOfPlayers: 0
 --- !u!1 &6373717918245115452
 GameObject:
   m_ObjectHideFlags: 0

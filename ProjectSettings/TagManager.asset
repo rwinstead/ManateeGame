@@ -13,6 +13,7 @@ TagManager:
   - NetworkManager
   - ScoreKeeper
   - RaceHUD
+  - SyncedServerData
   layers:
   - Default
   - TransparentFX

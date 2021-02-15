@@ -77,6 +77,8 @@ MonoBehaviour:
     type: 3}
   RaceModeHUD: {fileID: 6373717917840042430, guid: a8e9657c70404914091da6e6462203b6,
     type: 3}
+  SyncedDataForClients: {fileID: 1165688167795776323, guid: a5b0b5c292d360a4d8d92f13dc7e91a8,
+    type: 3}
 --- !u!114 &6154472011054405803
 MonoBehaviour:
   m_ObjectHideFlags: 0
