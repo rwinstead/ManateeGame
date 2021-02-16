@@ -24,7 +24,6 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        Debug.Log("Spawning a player!!!!!!!!!");
         NetworkManagerMG.OnServerReadied += SpawnPlayer;
     }
 
@@ -32,7 +31,6 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Removing player spawnage");
         NetworkManagerMG.OnServerReadied -= SpawnPlayer;
     }
 
@@ -48,8 +46,8 @@ public class PlayerSpawnSystem : NetworkBehaviour
         {
             if (item.CompareTag("GamePlayer"))
             {
-                //playerInstance.GetComponent<LinkToGamePlayer>().SetDisplayName(item.GetComponent<NetworkGamePlayer>().displayName);
-                //playerInstance.GetComponent<LinkToGamePlayer>().SetClientGamePlayer(item.GetComponent<NetworkGamePlayer>());
+                playerInstance.GetComponent<LinkToGamePlayer>().SetDisplayName(item.GetComponent<NetworkGamePlayer>().displayName);
+                playerInstance.GetComponent<LinkToGamePlayer>().SetOwnersGamePlayerNetID(item.GetComponent<NetworkIdentity>().netId);
             }
         }
 

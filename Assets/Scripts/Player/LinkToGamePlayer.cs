@@ -10,46 +10,24 @@ public class LinkToGamePlayer : NetworkBehaviour
      *  associated with it.
      */
 
-
-    [SyncVar]
     public NetworkGamePlayer thisPlayer;
 
     [SyncVar]
     public string myName = string.Empty;
 
-    private NetworkManagerMG room;
+    [SyncVar]
+    public uint GamePlayerNetId;
 
-    public NetworkManagerMG Room
+    private void Start() //Finds which gameplayer this ball belongs to based on the given NetId (provided by playerspawner)
     {
-        get
+        foreach(var item in NetworkIdentity.spawned)
         {
-            if (room != null)
+            if(item.Key == GamePlayerNetId)
             {
-                return room;
-            }
-
-            return room = NetworkManager.singleton as NetworkManagerMG;
-        }
-    }
-
-    private void Start()
-    {
-        if (isServer)
-        {
-            foreach(NetworkGamePlayer Player in Room.GamePlayers)
-            {
-
-                if(gameObject.GetComponent<NetworkIdentity>().connectionToClient == Player.connectionToClient)
-                {
-                    thisPlayer = Player;
-                }
-
-                Debug.Log(gameObject.GetComponent<NetworkIdentity>().connectionToClient);
-                Debug.Log(Player.connectionToClient);
+                thisPlayer = item.Value.gameObject.GetComponent<NetworkGamePlayer>(); 
             }
         }
     }
-
 
     [Server]
     public void SetDisplayName(string name)
@@ -58,9 +36,9 @@ public class LinkToGamePlayer : NetworkBehaviour
     }
 
     [Server]
-    public void SetClientGamePlayer(NetworkGamePlayer player)
+    public void SetOwnersGamePlayerNetID(uint netId)
     {
-        thisPlayer = player;
+        GamePlayerNetId = netId;
     }
 
     public void FinishedRace()

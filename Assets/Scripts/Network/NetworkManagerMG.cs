@@ -24,7 +24,6 @@ public class NetworkManagerMG : NetworkManager
     [SerializeField] private GameObject ScoreKeeperPrefab = null;
     [SerializeField] private GameObject StageStartCountdown = null;
     [SerializeField] private GameObject RaceModeHUD = null;
-    [SerializeField] private GameObject SyncedDataForClients = null;
 
     private string selectedMap = "MarbleRun_active";
 
@@ -191,9 +190,6 @@ public class NetworkManagerMG : NetworkManager
         if ("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene)
         {
 
-            var SyncedServerDataForClientsInstance = Instantiate(SyncedDataForClients);
-            var SyncedDataList = SyncedServerDataForClientsInstance.GetComponent<SyncedServerDataForClients>();
-
             for (int i = RoomPlayers.Count -1; i >= 0; i--)
             {
                 Debug.Log("Room player number: " + i);
@@ -205,7 +201,6 @@ public class NetworkManagerMG : NetworkManager
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject, true);
                 GamePlayers.Add(gameplayerInstance);
-                SyncedDataList.PlayerList.Add(gameplayerInstance);
             }
 
             var RaceModeHUDInstance = Instantiate(RaceModeHUD);
@@ -219,7 +214,6 @@ public class NetworkManagerMG : NetworkManager
 
             NetworkServer.Spawn(ScoreKeeperInstance);
             NetworkServer.Spawn(RaceModeHUDInstance);
-            NetworkServer.Spawn(SyncedServerDataForClientsInstance);
 
         }
 

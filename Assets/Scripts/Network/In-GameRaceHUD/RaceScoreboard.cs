@@ -31,6 +31,8 @@ public class RaceScoreboard : NetworkBehaviour
     [SyncVar]
     public int NumberOfPlayers;
 
+    SyncDictionary<uint, NetworkScoreKeeper.PlayerData> SyncedPlayerScores = new SyncDictionary<uint, NetworkScoreKeeper.PlayerData>();
+
     private NetworkManagerMG room;
 
     public NetworkManagerMG Room
@@ -95,12 +97,25 @@ public class RaceScoreboard : NetworkBehaviour
         TotalUIWidth += StageRowWidth;
     }
 
+    [Server]
     public void UpdateScoreboard(Dictionary<uint, NetworkScoreKeeper.PlayerData> PlayerScores)
     {
         foreach (KeyValuePair<uint, NetworkScoreKeeper.PlayerData> pair in PlayerScores)
         {
+            SyncedPlayerScores[pair.Key] = pair.Value;
+            Debug.Log(pair.Key);
+            Debug.Log(pair.Value.DisplayName);
+        }
+        RpcPrintDict();
+    }
+
+    [ClientRpc]
+    private void RpcPrintDict()
+    {
+        foreach (KeyValuePair<uint, NetworkScoreKeeper.PlayerData> pair in SyncedPlayerScores)
+        {
             string Output = string.Empty;
-            Output = pair.Key.ToString() + ": { Positions: (";
+            Output = pair.Key.ToString() + " " + pair.Value.DisplayName + " : { Positions: (";
             //Debug.Log("Key: " + pair.Key);
 
             foreach (int score in pair.Value.StageFinishPosition)
@@ -127,5 +142,6 @@ public class RaceScoreboard : NetworkBehaviour
             Debug.Log(Output);
         }
     }
-}
 
+
+}
