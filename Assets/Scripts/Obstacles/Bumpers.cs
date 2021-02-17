@@ -12,13 +12,15 @@ public class Bumpers : NetworkBehaviour
     private Vector3 movePosition;
     private Vector3 platformStart;
     private Vector3 platformDelta;
-    private float speed = 0.105f;
+    public float speed = 4f;
     private Rigidbody attachedPlayer;
     private Rigidbody rb;
     private bool exiting = false;
     private float delayTime;
-    public initialPosition InitialPosition = initialPosition.Down;  // this public var should appear as a drop down
-
+    public initialPosition InitialPosition = initialPosition.Down;
+    public float distance;
+    public float detatchDelay = 0.3f;
+    
     public enum initialPosition
     {
         Up,
@@ -36,6 +38,9 @@ public class Bumpers : NetworkBehaviour
         {
             transform.position = endPosition;
         }
+
+        
+
     }
 
     // Update is called once per frame
@@ -51,7 +56,7 @@ public class Bumpers : NetworkBehaviour
         else if (transform.position.y <= startPosition.y) { targetPosition = endPosition; }
         platformStart = transform.position;
 
-        movePosition = Vector3.MoveTowards(transform.position, targetPosition, speed);
+        movePosition = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
         rb.MovePosition(movePosition);
         
         platformDelta = movePosition - platformStart;
@@ -62,6 +67,7 @@ public class Bumpers : NetworkBehaviour
             if (delayTime <= 0) 
             {
                 Debug.Log("Detatched Player:" + attachedPlayer.GetComponentInParent<LinkToGamePlayer>().thisPlayer.displayName);
+                
                 attachedPlayer = null;
                 exiting = false;
 
@@ -69,7 +75,11 @@ public class Bumpers : NetworkBehaviour
         }
         if (attachedPlayer)
         {
-            attachedPlayer.MovePosition(attachedPlayer.position + platformDelta);
+            // Debug.Log("platformStart: " + platformStart +" movePosition: " + movePosition + " Delta: " + platformDelta);
+
+            //platformDelta = new Vector3(attachedPlayer.transform.position.x, movePosition.y + distance, attachedPlayer.transform.position.z);
+            //attachedPlayer.MovePosition(platformDelta);
+            attachedPlayer.MovePosition(attachedPlayer.transform.position + platformDelta * Time.deltaTime);
         }
         
         
@@ -82,8 +92,9 @@ public class Bumpers : NetworkBehaviour
             if(true)
             //if (other.gameObject.GetComponentInParent<NetworkIdentity>().hasAuthority)
             {
-                attachedPlayer = other.gameObject.GetComponentInParent<Rigidbody>();
+                distance = other.transform.position.y - transform.position.y;   
                 Debug.Log("Attached Player:" + other.gameObject.GetComponentInParent<LinkToGamePlayer>().thisPlayer.displayName);
+                attachedPlayer = other.gameObject.GetComponent<Rigidbody>();
             }
             
         }
@@ -97,7 +108,8 @@ public class Bumpers : NetworkBehaviour
             //if (other.gameObject.GetComponentInParent<NetworkIdentity>().hasAuthority)
             {
                 exiting = true;
-                delayTime = 0.3f;
+                
+                delayTime = detatchDelay;
                 Debug.Log("Starting detach delay");
             }
         }
