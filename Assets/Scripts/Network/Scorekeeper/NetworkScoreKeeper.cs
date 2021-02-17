@@ -36,6 +36,7 @@ public class NetworkScoreKeeper : NetworkBehaviour
     {
         PlayerScores[NetID] = new PlayerData();
         PlayerScores[NetID].DisplayName = DisplayName;
+        raceScoreboard.UpdateScoreboard(PlayerScores, NetID);
         PrintDict();
     }
 
@@ -64,7 +65,7 @@ public class NetworkScoreKeeper : NetworkBehaviour
                 PlayerScores[NetID].StageCollectibles.Add(CollectibleCount - PreviousCollectibleTotal);
             }
 
-            raceScoreboard.UpdateScoreboard(PlayerScores);
+            raceScoreboard.UpdateScoreboard(PlayerScores, NetID);
             PrintDict();
         }
         

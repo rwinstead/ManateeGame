@@ -92,7 +92,7 @@ public class NetworkGamePlayer : NetworkBehaviour
         return false;
     }
 
-    [Server]
+    [ServerCallback]
     public void GiveScoreKeeperNetID()
     {
         ScoreKeeper = GameObject.FindGameObjectWithTag("ScoreKeeper").GetComponent<NetworkScoreKeeper>();
