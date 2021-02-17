@@ -33,11 +33,25 @@ public class RaceScoreboard : NetworkBehaviour
     private float ScoreHeight = 75;
     private float TotalUIWidth = 0;
 
+    private bool CanvasIsActive = false;
+
     [SerializeField]
+    private GameObject ScoreboardCanvas;
+
+    [SyncVar]
+    public int CurrentMapIndex;
+
+    //Syncvars below are used for initialization on the client side
+
     [SyncVar]
     public int NumberOfPlayers;
 
+    SyncList<string> ListOfPlayerNames = new SyncList<string>();
+    SyncList<uint> ListOfPlayerNetIds = new SyncList<uint>();
+
     Dictionary<uint, NetworkScoreKeeper.PlayerData> SyncedPlayerScores = new Dictionary<uint, NetworkScoreKeeper.PlayerData>();
+
+    Dictionary<uint, List<TextMeshProUGUI>> CanvasScores = new Dictionary<uint, List<TextMeshProUGUI>>();
 
     private NetworkManagerMG room;
 
@@ -55,18 +69,130 @@ public class RaceScoreboard : NetworkBehaviour
     }
 
     /*
-     * Getting the # of players must be called in OnEnable. If called in start, the syncvar won't be updated in time
+     * Getting the # of players must be called before start. If called in start, the syncvar won't be updated in time
      * for the client, and it will call start with number of players = 0.
      */
-    private void OnEnable()
+    private void Awake()
     {
         NumberOfPlayers = Room.GamePlayers.Count;
         TotalNumberOfHeaders = StagesCount + 3;
 
-}
+        foreach(var player in Room.GamePlayers)
+        {
+            ListOfPlayerNames.Add(player.displayName);
+            ListOfPlayerNetIds.Add(player.netId);
+        }
+
+    }
 
     private void Start()
     {
+
+        InitializeScoreboard();
+
+    }
+
+    private void IncreaseUIWidth()
+    {
+        TotalUIWidth += StageRowWidth;
+    }
+
+    private void UpdateScoreBoardCanvas(uint netId, int collectibles, int position)
+    {
+        CanvasScores[netId][CurrentMapIndex].SetText(position.ToString());
+
+        if(CanvasScores[netId][CanvasScores[netId].Count - 1].text != " ")
+        {
+            int CollectiblesIndex = CanvasScores[netId].Count - 2;
+            CanvasScores[netId][CollectiblesIndex].text = (int.Parse(CanvasScores[netId][CollectiblesIndex].text) + collectibles).ToString();
+
+            int TotalIndex = CanvasScores[netId].Count - 1;
+            CanvasScores[netId][TotalIndex].text = (int.Parse(CanvasScores[netId][TotalIndex].text) + position).ToString();
+        }
+        else
+        {
+            int CollectiblesIndex = CanvasScores[netId].Count - 2;
+            CanvasScores[netId][CollectiblesIndex].text = collectibles.ToString();
+
+            int TotalIndex = CanvasScores[netId].Count - 1;
+            CanvasScores[netId][TotalIndex].text = position.ToString();
+        }
+
+
+    }
+
+    [Server]
+    public void UpdateScoreboard(Dictionary<uint, NetworkScoreKeeper.PlayerData> PlayerScores, uint FinishedNetId)
+    {
+        int NewScoreIndex = 0;
+        foreach (KeyValuePair<uint, NetworkScoreKeeper.PlayerData> pair in PlayerScores)
+        {
+            SyncedPlayerScores[pair.Key] = pair.Value;
+
+            /*
+             * Below sends entire arrays of values, but not needed unless player joins mid-way through.
+            int[] StageCollectibles = pair.Value.StageCollectibles.ToArray();
+            int[] StageFinishPosition = pair.Value.StageFinishPosition.ToArray();
+            double[] StageTime = pair.Value.StageTime.ToArray();
+            */           
+        }
+
+        if (PlayerScores[FinishedNetId].StageCollectibles.Count > 0)
+        {
+            NewScoreIndex = PlayerScores[FinishedNetId].StageCollectibles.Count - 1;
+        }
+        UpdateScoreBoardCanvas(FinishedNetId, PlayerScores[FinishedNetId].StageCollectibles[NewScoreIndex], PlayerScores[FinishedNetId].StageFinishPosition[NewScoreIndex]);
+        //This awful-looking function sends the client the playerscore values for the player that just finished, so they can update their scoreboard.
+        RpcSendScoreData(FinishedNetId, PlayerScores[FinishedNetId].DisplayName, PlayerScores[FinishedNetId].StageCollectibles[NewScoreIndex],
+                PlayerScores[FinishedNetId].StageFinishPosition[NewScoreIndex], PlayerScores[FinishedNetId].StageTime[NewScoreIndex]);      
+
+
+        PrintDict();
+    }
+
+    [ClientRpc]
+
+    private void RpcSendScoreData(uint netId, string DisplayName, int collectibles, int position, double time)
+    {
+        if (!isServer)
+        {
+            if (SyncedPlayerScores.ContainsKey(netId))
+            {
+                SyncedPlayerScores[netId].StageCollectibles.Add(collectibles);
+                SyncedPlayerScores[netId].StageFinishPosition.Add(position);
+                SyncedPlayerScores[netId].StageTime.Add(time);
+                PrintDict();
+                UpdateScoreBoardCanvas(netId, collectibles, position);
+            }
+
+            else //Should never be called, but just in case
+            {
+                SyncedPlayerScores[netId] = new NetworkScoreKeeper.PlayerData();
+                SyncedPlayerScores[netId].DisplayName = DisplayName;
+                SyncedPlayerScores[netId].StageCollectibles.Add(collectibles);
+                SyncedPlayerScores[netId].StageFinishPosition.Add(position);
+                SyncedPlayerScores[netId].StageTime.Add(time);
+                PrintDict();
+            }
+        }
+        
+    }
+
+
+    private void InitializeScoreboard()
+    {
+
+        // ADDS GAMEPLAYERS TO SCOREBOARD DICTIONARY ***********************************************
+
+        for (int i = 0; i < ListOfPlayerNetIds.Count; i++)
+        {
+            uint initNetId = 0;
+            initNetId = ListOfPlayerNetIds[i];
+            SyncedPlayerScores[initNetId] = new NetworkScoreKeeper.PlayerData();
+            SyncedPlayerScores[initNetId].DisplayName = ListOfPlayerNames[i];
+        }
+
+        // GENERATES HEADERS ************************************************************************
         float containerWidth = StageRowTransformContainer.GetComponent<RectTransform>().anchoredPosition.x;
         float containerHeight = StageRowTransformContainer.GetComponent<RectTransform>().anchoredPosition.y;
 
@@ -89,11 +215,10 @@ public class RaceScoreboard : NetworkBehaviour
         TotalScoreHeader.GetComponent<RectTransform>().anchoredPosition = new Vector2(TotalUIWidth + containerWidth, containerHeight);
         IncreaseUIWidth();
 
-        PlayerScoresBackground.GetComponent<RectTransform>().sizeDelta = new Vector2(TotalUIWidth + 130, ScoreHeight);
+        // GENERATES PLACEHOLDERS FOR SCORES ***********************************************************
 
-        Debug.Log(NumberOfPlayers);
+        PlayerScoresBackground.GetComponent<RectTransform>().sizeDelta = new Vector2(130 * (TotalNumberOfHeaders), ScoreHeight);
 
-        /*
         for (int i = 0; i < NumberOfPlayers; i++) // Creates the background for each player score row
         {
             var PlayerBkgScoreRow = Instantiate(PlayerScoresBackgroundTemplate, PlayerScoresBackgroundContainer);
@@ -104,67 +229,44 @@ public class RaceScoreboard : NetworkBehaviour
 
         for (int i = 0; i < NumberOfPlayers; i++) //Creates each cell in the scoreboard table that contains player data
         {
-            for(int k = 0; k < TotalNumberOfHeaders; k++)
+            uint initNetId = 0;
+            initNetId = ListOfPlayerNetIds[i];
+            CanvasScores.Add(initNetId, new List<TextMeshProUGUI>());
+
+            for (int k = 0; k < TotalNumberOfHeaders; k++)
             {
                 var PlayerScoreRow = Instantiate(PlayerScoresTemplate, PlayerScoresContainer);
                 var ScoreRectTransform = PlayerScoreRow.GetComponent<RectTransform>();
                 ScoreRectTransform.anchoredPosition = new Vector2(k * StageRowWidth, i * -ScoreHeight);
                 PlayerScoreRow.gameObject.SetActive(true);
+
+                CanvasScores[initNetId].Add(PlayerScoreRow.GetComponent<TextMeshProUGUI>());
+                CanvasScores[initNetId][0].SetText(ListOfPlayerNames[i]); //Sets name for player
             }
         }
-        */
 
     }
 
-    private void IncreaseUIWidth()
-    {
-        TotalUIWidth += StageRowWidth;
-    }
 
-    private void UpdateScoreBoardCanvas()
+    private void Update()
     {
-
-    }
-
-    [Server]
-    public void UpdateScoreboard(Dictionary<uint, NetworkScoreKeeper.PlayerData> PlayerScores, uint FinishedNetId)
-    {
-        foreach (KeyValuePair<uint, NetworkScoreKeeper.PlayerData> pair in PlayerScores)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            SyncedPlayerScores[pair.Key] = pair.Value;
-
-            /*
-             * Below sends entire arrays of values, but not needed unless player joins mid-way through.
-            int[] StageCollectibles = pair.Value.StageCollectibles.ToArray();
-            int[] StageFinishPosition = pair.Value.StageFinishPosition.ToArray();
-            double[] StageTime = pair.Value.StageTime.ToArray();
-            */           
+            CanvasIsActive = !CanvasIsActive;
         }
 
-        if (PlayerScores[FinishedNetId].StageCollectibles.Count > 0)
+        if (CanvasIsActive)
         {
-            Debug.Log("wrong path");
-            int NewScoreIndex = PlayerScores[FinishedNetId].StageCollectibles.Count - 1;
-
-            //This awful-looking function sends the client the playerscore values for the player that just finished, so they can update their scoreboard.
-            RpcSendScoreData(FinishedNetId, PlayerScores[FinishedNetId].DisplayName, PlayerScores[FinishedNetId].StageCollectibles[NewScoreIndex],
-                PlayerScores[FinishedNetId].StageFinishPosition[NewScoreIndex], PlayerScores[FinishedNetId].StageTime[NewScoreIndex]);
+            ScoreboardCanvas.SetActive(true);
         }
-
         else
         {
-            if (!isServer)
-            {
-                RpcInitializeScoreboard(FinishedNetId, PlayerScores[FinishedNetId].DisplayName);
-            }
-            else
-            {
-                InitializeScoreboard(FinishedNetId, PlayerScores[FinishedNetId].DisplayName);
-            }
+            ScoreboardCanvas.SetActive(false);
         }
 
-        PrintDict();
     }
+
+
 
 
     private void PrintDict()
@@ -198,89 +300,6 @@ public class RaceScoreboard : NetworkBehaviour
             Output += ")}";
             Debug.Log(Output);
         }
-    }
-
-    [ClientRpc]
-
-    private void RpcSendScoreData(uint netId, string DisplayName, int collectibles, int position, double time)
-    {
-        if (!isServer)
-        {
-            if (SyncedPlayerScores.ContainsKey(netId))
-            {
-                SyncedPlayerScores[netId].StageCollectibles.Add(collectibles);
-                SyncedPlayerScores[netId].StageFinishPosition.Add(position);
-                SyncedPlayerScores[netId].StageTime.Add(time);
-                PrintDict();
-            }
-
-            else //Should never be called, but just in case
-            {
-                SyncedPlayerScores[netId] = new NetworkScoreKeeper.PlayerData();
-                SyncedPlayerScores[netId].DisplayName = DisplayName;
-                SyncedPlayerScores[netId].StageCollectibles.Add(collectibles);
-                SyncedPlayerScores[netId].StageFinishPosition.Add(position);
-                SyncedPlayerScores[netId].StageTime.Add(time);
-                PrintDict();
-            }
-        }
-        
-    }
-
-    [ClientRpc] // This method doesnt work currently -- it's never called on client since it' called before client even joins.
-    //Need to listen for event to create scoreboard when everyone has joined or do coroutine.
-
-    private void RpcInitializeScoreboard(uint netId, string DisplayName)
-    {
-        Debug.Log("init scoreboard");
-        SyncedPlayerScores[netId] = new NetworkScoreKeeper.PlayerData();
-        SyncedPlayerScores[netId].DisplayName = DisplayName;
-
-        int NumberOfPlayersJoined = 0;
-
-            var PlayerBkgScoreRow = Instantiate(PlayerScoresBackgroundTemplate, PlayerScoresBackgroundContainer);
-            var ScoreBkgRectTransform = PlayerBkgScoreRow.GetComponent<RectTransform>();
-            ScoreBkgRectTransform.anchoredPosition = new Vector2(0, NumberOfPlayersJoined * -ScoreHeight);
-            PlayerBkgScoreRow.gameObject.SetActive(true);
-
-            for (int k = 0; k < TotalNumberOfHeaders; k++)
-            {
-                var PlayerScoreRow = Instantiate(PlayerScoresTemplate, PlayerScoresContainer);
-                var ScoreRectTransform = PlayerScoreRow.GetComponent<RectTransform>();
-                ScoreRectTransform.anchoredPosition = new Vector2(k * StageRowWidth, NumberOfPlayersJoined * -ScoreHeight);
-                PlayerScoreRow.gameObject.SetActive(true);
-            }
-
-        NumberOfPlayersJoined++;
-
-        PrintDict();
-    }
-
-    private int NumberOfPlayersJoinedServer = 0;
-
-    [Server]
-    private void InitializeScoreboard(uint netId, string DisplayName)
-    {
-        Debug.Log("init scoreboard server");
-
-        PlayerScoresBackground.GetComponent<RectTransform>().sizeDelta = new Vector2(130 * (TotalNumberOfHeaders), ScoreHeight);
-        Debug.Log(TotalUIWidth);
-
-        var PlayerBkgScoreRow = Instantiate(PlayerScoresBackgroundTemplate, PlayerScoresBackgroundContainer);
-        var ScoreBkgRectTransform = PlayerBkgScoreRow.GetComponent<RectTransform>();
-        ScoreBkgRectTransform.anchoredPosition = new Vector2(0, NumberOfPlayersJoinedServer * -ScoreHeight);
-        PlayerBkgScoreRow.gameObject.SetActive(true);
-
-        for (int k = 0; k < TotalNumberOfHeaders; k++)
-        {
-            var PlayerScoreRow = Instantiate(PlayerScoresTemplate, PlayerScoresContainer);
-            var ScoreRectTransform = PlayerScoreRow.GetComponent<RectTransform>();
-            ScoreRectTransform.anchoredPosition = new Vector2(k * StageRowWidth, NumberOfPlayersJoinedServer * -ScoreHeight);
-            PlayerScoreRow.gameObject.SetActive(true);
-        }
-
-        NumberOfPlayersJoinedServer++;
-
     }
 
 

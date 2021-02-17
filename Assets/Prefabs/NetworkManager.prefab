@@ -49,7 +49,7 @@ MonoBehaviour:
   autoStartServerBuild: 1
   showDebugMessages: 0
   serverTickRate: 60
-  offlineScene: Assets/Scenes/ActiveScenes/MainMenu.unity
+  offlineScene: 
   onlineScene: 
   transport: {fileID: 6154472011054405803}
   networkAddress: localhost
@@ -76,8 +76,6 @@ MonoBehaviour:
   StageStartCountdown: {fileID: 9169988051184762191, guid: 39aedb7daaf44ca4db107cdac078d2fe,
     type: 3}
   RaceModeHUD: {fileID: 6373717917840042430, guid: a8e9657c70404914091da6e6462203b6,
-    type: 3}
-  SyncedDataForClients: {fileID: 1165688167795776323, guid: a5b0b5c292d360a4d8d92f13dc7e91a8,
     type: 3}
 --- !u!114 &6154472011054405803
 MonoBehaviour:

@@ -36,7 +36,7 @@ public class NetworkScoreKeeper : NetworkBehaviour
     {
         PlayerScores[NetID] = new PlayerData();
         PlayerScores[NetID].DisplayName = DisplayName;
-        raceScoreboard.UpdateScoreboard(PlayerScores, NetID);
+        //raceScoreboard.UpdateScoreboard(PlayerScores, NetID);
         PrintDict();
     }
 
@@ -76,6 +76,7 @@ public class NetworkScoreKeeper : NetworkBehaviour
         Debug.Log("map index is now " + MapIndex);
         MapIndex++;
         position = 1;
+        raceScoreboard.CurrentMapIndex = MapIndex;
     }
 
     private void UnsubscribeFromEvents()
