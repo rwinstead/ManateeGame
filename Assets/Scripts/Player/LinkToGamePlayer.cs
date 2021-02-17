@@ -11,31 +11,40 @@ public class LinkToGamePlayer : NetworkBehaviour
      */
 
     public NetworkGamePlayer thisPlayer;
-    public string myName = "George";
-    
-    public NetworkManagerMG NetworkMan;
-    public List<NetworkGamePlayer> PlayerList;
-    // Start is called before the first frame update
-    void Awake()
+
+    [SyncVar]
+    public string myName = string.Empty;
+
+    [SyncVar]
+    public uint GamePlayerNetId;
+
+    private void Start() //Finds which gameplayer this ball belongs to based on the given NetId (provided by playerspawner)
     {
-
-        NetworkMan = GameObject.FindObjectOfType<NetworkManagerMG>();
-        PlayerList = NetworkMan.GamePlayers;
-        foreach (NetworkGamePlayer player in PlayerList)
+        foreach(var item in NetworkIdentity.spawned)
         {
-            if (player.hasAuthority)
+            if(item.Key == GamePlayerNetId)
             {
-                thisPlayer = player;
-                myName = player.displayName;
-                //Debug.Log("Hello! My Name is " + thisPlayer.displayName);
+                thisPlayer = item.Value.gameObject.GetComponent<NetworkGamePlayer>(); 
             }
-
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    [Server]
+    public void SetDisplayName(string name)
     {
-        
+        myName = name;
     }
+
+    [Server]
+    public void SetOwnersGamePlayerNetID(uint netId)
+    {
+        GamePlayerNetId = netId;
+    }
+
+    public void FinishedRace()
+    {
+        if(!hasAuthority) { return; }
+        thisPlayer.CmdFinishedRace();
+    }
+
 }

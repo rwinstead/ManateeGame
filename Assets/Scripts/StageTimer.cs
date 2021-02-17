@@ -18,7 +18,7 @@ public class StageTimer : MonoBehaviour
     private void Start()
     {
         // Starts the timer automatically
-        timerIsRunning = true;
+        //timerIsRunning = true;
     }
 
     void Update()

@@ -11,7 +11,7 @@ public class NetworkManagerMG : NetworkManager
 
     //just using this to test connection
     public int thisGuy = 42;
-    
+
     [SerializeField] private int minPlayers = 1;
     [Scene] [SerializeField] private string menuScene = string.Empty;
 
@@ -21,6 +21,9 @@ public class NetworkManagerMG : NetworkManager
     [Header("In-Game")]
     [SerializeField] private NetworkGamePlayer gamePlayerPrefab = null;
     [SerializeField] private GameObject playerSpawnSystem = null;
+    [SerializeField] private GameObject ScoreKeeperPrefab = null;
+    [SerializeField] private GameObject StageStartCountdown = null;
+    [SerializeField] private GameObject RaceModeHUD = null;
 
     private string selectedMap = "MarbleRun_active";
 
@@ -31,6 +34,8 @@ public class NetworkManagerMG : NetworkManager
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
     public static event Action<NetworkConnection> OnServerReadied;
+    public static event Action ServerStopped;
+    public static event Action ServerChangedLevel;
 
     public override void OnStartServer()
     {
@@ -101,7 +106,7 @@ public class NetworkManagerMG : NetworkManager
             roomPlayerInstance.IsLeader = isLeader;
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
-        
+
 
 
     }
@@ -133,7 +138,7 @@ public class NetworkManagerMG : NetworkManager
 
     public override void OnStopServer()
     {
-        
+        ServerStopped?.Invoke();
         RoomPlayers.Clear();
         GamePlayers.Clear();
         //base.OnStopServer();
@@ -184,6 +189,7 @@ public class NetworkManagerMG : NetworkManager
 
         if ("Assets/Scenes/ActiveScenes/" + SceneManager.GetActiveScene().name + ".unity" == menuScene)
         {
+
             for (int i = RoomPlayers.Count -1; i >= 0; i--)
             {
                 Debug.Log("Room player number: " + i);
@@ -194,8 +200,21 @@ public class NetworkManagerMG : NetworkManager
 
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject, true);
-
+                GamePlayers.Add(gameplayerInstance);
             }
+
+            var RaceModeHUDInstance = Instantiate(RaceModeHUD);
+            var ScoreKeeperInstance = Instantiate(ScoreKeeperPrefab);
+
+            //These references will only work for the server
+            RaceModeHUDInstance.GetComponent<RaceScoreboard>().networkScoreKeeper = ScoreKeeperInstance.GetComponent<NetworkScoreKeeper>();
+            ScoreKeeperInstance.GetComponent<NetworkScoreKeeper>().stageTimer = RaceModeHUDInstance.GetComponent<ServerStageTimer>();
+            ScoreKeeperInstance.GetComponent<NetworkScoreKeeper>().raceScoreboard = RaceModeHUDInstance.GetComponent<RaceScoreboard>();
+            
+
+            NetworkServer.Spawn(ScoreKeeperInstance);
+            NetworkServer.Spawn(RaceModeHUDInstance);
+
         }
 
             base.ServerChangeScene(newSceneName);
@@ -205,8 +224,14 @@ public class NetworkManagerMG : NetworkManager
     {
         if(sceneName != "MainMenu")
         {
+            GameObject StageStartCountdownInstance = Instantiate(StageStartCountdown);
+            NetworkServer.Spawn(StageStartCountdownInstance);
+
             GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);
+
+            //NetworkScoreKeeper.UpdateScorekeeperNewRound();
+            ServerChangedLevel?.Invoke();
         }
     }
 
@@ -239,9 +264,5 @@ public class NetworkManagerMG : NetworkManager
         }
 
     }
-
-
-
-
 
 }

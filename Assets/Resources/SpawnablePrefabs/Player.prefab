@@ -478,6 +478,7 @@ MonoBehaviour:
   jumpForce: 13
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  movementEnabled: 0
   velocityBeforeCollision: {x: 0, y: 0, z: 0}
 --- !u!114 &2940186117274257043
 MonoBehaviour:
@@ -560,9 +561,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   thisPlayer: {fileID: 0}
-  myName: George
-  NetworkMan: {fileID: 0}
-  PlayerList: []
+  myName: 
 --- !u!114 &8411315014955983531
 MonoBehaviour:
   m_ObjectHideFlags: 0

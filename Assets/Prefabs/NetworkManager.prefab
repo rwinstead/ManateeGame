@@ -49,7 +49,7 @@ MonoBehaviour:
   autoStartServerBuild: 1
   showDebugMessages: 0
   serverTickRate: 60
-  offlineScene: Assets/Scenes/ActiveScenes/MainMenu.unity
+  offlineScene: 
   onlineScene: 
   transport: {fileID: 6154472011054405803}
   networkAddress: localhost
@@ -70,6 +70,12 @@ MonoBehaviour:
   gamePlayerPrefab: {fileID: 2500694406349195492, guid: 486f8c6c02bf8c945b3c7798cabe71e9,
     type: 3}
   playerSpawnSystem: {fileID: 8421490746876649043, guid: 34eb7e01806ee1d4f8e301fd5ef9b3d3,
+    type: 3}
+  ScoreKeeperPrefab: {fileID: 275197252316248217, guid: 7b0e5a6b497dea541b685eabd25e5132,
+    type: 3}
+  StageStartCountdown: {fileID: 9169988051184762191, guid: 39aedb7daaf44ca4db107cdac078d2fe,
+    type: 3}
+  RaceModeHUD: {fileID: 6373717917840042430, guid: a8e9657c70404914091da6e6462203b6,
     type: 3}
 --- !u!114 &6154472011054405803
 MonoBehaviour:

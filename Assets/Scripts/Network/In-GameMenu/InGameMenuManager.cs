@@ -10,6 +10,11 @@ public class InGameMenuManager : MonoBehaviour
     
     public bool isLeader;
 
+    [SerializeField]
+    private GameObject InGameMenuCanvas;
+
+    private bool CanvasIsActive = false;
+
     private void Start()
     {
             NetworkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManagerMG>();           
@@ -17,7 +22,7 @@ public class InGameMenuManager : MonoBehaviour
 
     public void CloseGameMenu()
     {
-        gameObject.SetActive(false);
+        CanvasIsActive = !CanvasIsActive;
     }
 
     public void ExitToMenu()
@@ -35,8 +40,26 @@ public class InGameMenuManager : MonoBehaviour
         {
             NetworkManager.StopClient();
         }
+
         SceneManager.LoadScene("MainMenu");
         Destroy(gameObject);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CanvasIsActive = !CanvasIsActive;
+        }
+
+        if (CanvasIsActive)
+        {
+            InGameMenuCanvas.SetActive(true);
+        }
+        else
+        {
+            InGameMenuCanvas.SetActive(false);
+        }
     }
 
 }

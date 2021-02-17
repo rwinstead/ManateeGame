@@ -21,14 +21,7 @@ public class OpenInGameMenu : NetworkBehaviour
         }
     }
 
-    void Update()
-    {
-        if(!hasAuthority) { return; }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            InGameMenu.SetActive(true);
-        }
-    }
+
 
 
 

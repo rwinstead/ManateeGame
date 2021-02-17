@@ -17,7 +17,31 @@ public class NetworkGamePlayer : NetworkBehaviour
     public float currentRunEndTime = 0;
     public float bestRunTimeThisSession = 0;
 
+    public uint myNetId;
+
     public bool isLeader;
+
+    private NetworkScoreKeeper ScoreKeeper;
+
+    public int TotalCollectibleCount = 0;
+    public float StageTime = 0f;
+
+    private void Start()
+    {
+        //if(!hasAuthority) { return; }
+        myNetId = gameObject.GetComponent<NetworkIdentity>().netId;
+
+        GiveScoreKeeperNetID();
+
+        if(!hasAuthority) { return; }
+        coinManager.collectCoin += CmdupdateCoinCount;
+       
+    }
+    [Command]
+    private void CmdupdateCoinCount()
+    {     
+        TotalCollectibleCount++;
+    }
 
     public NetworkGamePlayer()
     {
@@ -45,15 +69,13 @@ public class NetworkGamePlayer : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
 
         //base.OnStartClient();
-        Room.GamePlayers.Add(this);
-
+        //Room.GamePlayers.Add(this);
     }
 
     public override void OnStopClient()
     {
-
+        coinManager.collectCoin -= CmdupdateCoinCount;
         Room.GamePlayers.Remove(this);
-
     }
 
    [Server]
@@ -70,9 +92,20 @@ public class NetworkGamePlayer : NetworkBehaviour
         return false;
     }
 
-
-
-
+    [ServerCallback]
+    public void GiveScoreKeeperNetID()
+    {
+        ScoreKeeper = GameObject.FindGameObjectWithTag("ScoreKeeper").GetComponent<NetworkScoreKeeper>();
+        ScoreKeeper.AddPlayerOnStart(myNetId, displayName);
+    }
+    
+    [Command]
+    public void CmdFinishedRace()
+    {
+        Debug.Log("sending coins: " + TotalCollectibleCount);
+        ScoreKeeper = GameObject.FindGameObjectWithTag("ScoreKeeper").GetComponent<NetworkScoreKeeper>();
+        ScoreKeeper.FinishedRace(myNetId, TotalCollectibleCount);
+    }
 
 
 

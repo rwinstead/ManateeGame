@@ -13,6 +13,7 @@ public class coinUI : MonoBehaviour
     {
         coinManager.collectCoin += updateCoinCount;
         coinCountText.text = "Coins: 0";
+        NetworkManagerMG.ServerChangedLevel += ResetCoinCount;
     }
 
     private void updateCoinCount()
@@ -22,9 +23,22 @@ public class coinUI : MonoBehaviour
 
     }
 
+    private void ResetCoinCount()
+    {
+        coinCount = 0;
+        coinCountText.text = "Coins: " + coinCount;
+    }
+
     private void OnDestroy()
     {
         coinManager.collectCoin -= updateCoinCount;
+        NetworkManagerMG.ServerChangedLevel -= ResetCoinCount;
+    }
+
+    private void OnDisable()
+    {
+        coinManager.collectCoin -= updateCoinCount;
+        NetworkManagerMG.ServerChangedLevel -= ResetCoinCount;
     }
 
 

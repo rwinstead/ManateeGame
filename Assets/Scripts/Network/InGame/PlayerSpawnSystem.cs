@@ -24,7 +24,6 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        Debug.Log("Spawning a player!!!!!!!!!");
         NetworkManagerMG.OnServerReadied += SpawnPlayer;
     }
 
@@ -32,26 +31,35 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Removing player spawnage");
         NetworkManagerMG.OnServerReadied -= SpawnPlayer;
     }
 
+    [Server]
     public void SpawnPlayer(NetworkConnection conn)
     {
+
         Transform spawnPoint = spawnPoints.ElementAtOrDefault(nextIndex);
 
-        if(spawnPoint == null)
+        GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
+
+        foreach (var item in conn.clientOwnedObjects)
+        {
+            if (item.CompareTag("GamePlayer"))
+            {
+                playerInstance.GetComponent<LinkToGamePlayer>().SetDisplayName(item.GetComponent<NetworkGamePlayer>().displayName);
+                playerInstance.GetComponent<LinkToGamePlayer>().SetOwnersGamePlayerNetID(item.GetComponent<NetworkIdentity>().netId);
+            }
+        }
+
+        if (spawnPoint == null)
         {
             Debug.LogError($"Missing spawn point for player {nextIndex}");
             return;
         }
 
-        GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
         NetworkServer.Spawn(playerInstance, conn);
 
         nextIndex++;
-
-
 
     }
 

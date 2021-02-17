@@ -12,6 +12,9 @@ TagManager:
   - GamePlayer
   - NetworkManager
   - Platform
+  - ScoreKeeper
+  - RaceHUD
+  - SyncedServerData
   layers:
   - Default
   - TransparentFX

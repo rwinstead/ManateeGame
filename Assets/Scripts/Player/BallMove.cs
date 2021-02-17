@@ -40,6 +40,8 @@ public class BallMove : NetworkBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
 
+    public bool movementEnabled = false;
+
     
     public Vector3 velocityBeforeCollision;
 
@@ -50,6 +52,18 @@ public class BallMove : NetworkBehaviour
         rb.maxAngularVelocity = Mathf.Infinity;
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
 
+        StageStartCountdown.MovementEnabled += EnableMovement;
+
+    }
+
+    private void OnDestroy()
+    {
+        StageStartCountdown.MovementEnabled -= EnableMovement;
+    }
+
+    private void EnableMovement()
+    {
+        movementEnabled = true;
     }
 
     // Update is called once per frame
@@ -147,7 +161,10 @@ void FixedUpdate()
             //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            rb.AddForce(moveDir.normalized * speed);
+            if (movementEnabled)
+            {
+                rb.AddForce(moveDir.normalized * speed);
+            }
         }
 
         if (rb.velocity.magnitude > .1 && isGrounded)

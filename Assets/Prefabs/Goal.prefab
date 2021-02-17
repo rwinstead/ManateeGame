@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 97579877272165378}
   - component: {fileID: 97579877272165439}
   - component: {fileID: 3635813985120045493}
+  - component: {fileID: 2078341597816240157}
+  - component: {fileID: 3992605379992405988}
   m_Layer: 0
   m_Name: GoalTrigger
   m_TagString: Untagged
@@ -121,6 +123,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   successful: 1
+--- !u!114 &2078341597816240157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97579877272165376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &3992605379992405988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97579877272165376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf76acfc1d17757408995c54a932e438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &97579877673682785
 GameObject:
   m_ObjectHideFlags: 0
