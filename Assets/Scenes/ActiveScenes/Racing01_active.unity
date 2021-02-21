@@ -1364,6 +1364,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -8751571032220589713, guid: 88a27c2bba9f9e84dba512affc33079f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88a27c2bba9f9e84dba512affc33079f,
         type: 3}
       propertyPath: m_RootOrder
@@ -1459,6 +1464,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -2625
       objectReference: {fileID: 0}
+    - target: {fileID: -2652290931387300757, guid: 88a27c2bba9f9e84dba512affc33079f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -2577548232221058511, guid: 88a27c2bba9f9e84dba512affc33079f,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -1493,6 +1503,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 181.495
+      objectReference: {fileID: 0}
+    - target: {fileID: 880357779378149226, guid: 88a27c2bba9f9e84dba512affc33079f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 903645308349579735, guid: 88a27c2bba9f9e84dba512affc33079f,
         type: 3}
@@ -1559,6 +1574,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3646266879941207220, guid: 88a27c2bba9f9e84dba512affc33079f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3849762623622064168, guid: 88a27c2bba9f9e84dba512affc33079f,
         type: 3}
       propertyPath: m_Layer
@@ -1570,6 +1590,11 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5312778333429738984, guid: 88a27c2bba9f9e84dba512affc33079f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5544721208322742218, guid: 88a27c2bba9f9e84dba512affc33079f,
         type: 3}
       propertyPath: m_Layer
       value: 8
@@ -1640,6 +1665,11 @@ PrefabInstance:
       value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8687583167820199680, guid: 88a27c2bba9f9e84dba512affc33079f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8692203722404441734, guid: 88a27c2bba9f9e84dba512affc33079f,
         type: 3}
       propertyPath: m_Layer
       value: 8
