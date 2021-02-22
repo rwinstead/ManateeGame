@@ -109,7 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe064337ec2aae4ca46872821eabbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   startPosition: {fileID: 0}
+  goalSound: {fileID: 8300000, guid: 01d0fbf3355f7594da296ea45b983eb3, type: 3}
 --- !u!114 &3635813985120045493
 MonoBehaviour:
   m_ObjectHideFlags: 0
