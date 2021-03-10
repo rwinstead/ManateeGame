@@ -262,6 +262,10 @@ public class NetworkManagerMG : NetworkManager
         {
             selectedMap = "Racing02_active";
         }
+        if(mapName == 3)
+        {
+            selectedMap = "Collectible01_active";
+        }
 
     }
 

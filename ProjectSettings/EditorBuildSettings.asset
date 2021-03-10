@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ActiveScenes/MarbleRun_active.unity
     guid: a4722678d33d3504a8c75e37e38ba67e
   - enabled: 1
-    path: Assets/Scenes/ActiveScenes/Racing02_active.unity
+    path: Assets/Scenes/ActiveScenes/Collectible01_active.unity
     guid: b4dd0359e7b1ef54594c2c80aec2f27e
   - enabled: 1
     path: Assets/Scenes/ActiveScenes/Racing01_active.unity
