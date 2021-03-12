@@ -20,6 +20,7 @@ public class coinUI : MonoBehaviour
     {
         coinCount++;
         coinCountText.text = "Coins: " + coinCount;
+        Debug.Log("Coincount: " + coinCount);
 
     }
 

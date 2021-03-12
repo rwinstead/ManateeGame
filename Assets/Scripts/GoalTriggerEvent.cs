@@ -16,6 +16,7 @@ public class GoalTriggerEvent : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponentInParent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ public class GoalTriggerEvent : NetworkBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.GetComponentInParent<PlayerRespawn>().Respawn();
-            if (hasAuthority)
+            if (other.gameObject.GetComponentInParent<LinkToGamePlayer>().thisPlayer.hasAuthority)
             {
                 audioSource.PlayOneShot(goalSound, 0.5f);
             }
