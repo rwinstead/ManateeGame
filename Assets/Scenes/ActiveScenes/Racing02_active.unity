@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.1751848, g: 0.2191692, b: 0.30147615, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: a792f624ae0e0604d84d096f56e0bd55,
     type: 2}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -119,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -218,6 +220,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8690174325632650706, guid: c746d7cfe282ca942aaf0454eab6ef2e, type: 3}
+--- !u!114 &177874851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177874847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2446444669
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &179804659
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,6 +506,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -512,6 +531,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &332771006
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -705,6 +725,22 @@ MonoBehaviour:
   speedX: 0
   speedY: 120
   speedZ: 0
+--- !u!114 &378596461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378596457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3665788226
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &379221173
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +817,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 9.8
 --- !u!4 &379221175
@@ -859,6 +896,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -883,6 +921,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &409179069
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -971,6 +1010,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 9001937592727465160, guid: c746d7cfe282ca942aaf0454eab6ef2e, type: 3}
+--- !u!114 &475674840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475674836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1781108077
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &486477637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1113,22 @@ MonoBehaviour:
   speedX: 0
   speedY: -120
   speedZ: 0
+--- !u!114 &560492978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560492974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3341239948
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &576659040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,6 +1248,22 @@ MonoBehaviour:
   speedX: 0
   speedY: -120
   speedZ: 0
+--- !u!114 &713712406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713712402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4100950283
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &869852878
 GameObject:
   m_ObjectHideFlags: 3
@@ -1356,6 +1443,22 @@ MonoBehaviour:
   speedX: 0
   speedY: -120
   speedZ: 0
+--- !u!114 &887386908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887386904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1730082934
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &919644000 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8132001207629142963, guid: c746d7cfe282ca942aaf0454eab6ef2e,
@@ -1409,6 +1512,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8784657658143913232, guid: c746d7cfe282ca942aaf0454eab6ef2e, type: 3}
+--- !u!114 &919644004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919644000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1645558237
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &1025677786
 GameObject:
   m_ObjectHideFlags: 3
@@ -1655,6 +1774,22 @@ MonoBehaviour:
   speedX: 0
   speedY: 120
   speedZ: 0
+--- !u!114 &1182554429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182554425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 954155716
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &1224401288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1702,6 +1837,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1726,6 +1862,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1224401291
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1927,6 +2064,22 @@ MonoBehaviour:
   speedX: 0
   speedY: 120
   speedZ: 0
+--- !u!114 &1263775289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263775285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1882227595
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &1299719531
 GameObject:
   m_ObjectHideFlags: 3
@@ -2054,12 +2207,44 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4705808361261170321, guid: c746d7cfe282ca942aaf0454eab6ef2e, type: 3}
+--- !u!114 &1341927469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341927465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1419430958
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &1344657874 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7414628617113614920, guid: c746d7cfe282ca942aaf0454eab6ef2e,
     type: 3}
   m_PrefabInstance: {fileID: 1553500713}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1344657875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344657874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 585061296
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!114 &1344657876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6920,6 +7105,22 @@ MonoBehaviour:
   speedX: 0
   speedY: 120
   speedZ: 0
+--- !u!114 &1590643753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590643749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3139788042
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &1674255331
 GameObject:
   m_ObjectHideFlags: 0
@@ -7059,6 +7260,22 @@ MonoBehaviour:
   speedX: 0
   speedY: 120
   speedZ: 0
+--- !u!114 &1773484547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773484543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 596079444
+  serverOnly: 0
+  m_AssetId: c746d7cfe282ca942aaf0454eab6ef2e
+  hasSpawned: 0
 --- !u!1 &1775050576
 GameObject:
   m_ObjectHideFlags: 3

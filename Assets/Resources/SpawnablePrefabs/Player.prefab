@@ -55,13 +55,14 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2162135722817887740, guid: 25d7ba685893aee49921858b80858443, type: 3}
-  - {fileID: -7813266576287806939, guid: 25d7ba685893aee49921858b80858443, type: 3}
-  - {fileID: -4869258990755214624, guid: 25d7ba685893aee49921858b80858443, type: 3}
-  - {fileID: -7210994863241301444, guid: 25d7ba685893aee49921858b80858443, type: 3}
+  - {fileID: 2100000, guid: 266ca7bfb0073e44cb77e036b755cbfe, type: 2}
+  - {fileID: 2100000, guid: 3ec0a157f354ccd49af34045af7d9488, type: 2}
+  - {fileID: 2100000, guid: 25da0fe355578ab4897fbfb775ae793a, type: 2}
+  - {fileID: 2100000, guid: 9289f4504bbcabc41a668a1c2c556a01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,6 +83,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1732611858038748767
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,11 +144,12 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4874126678125670354, guid: 25d7ba685893aee49921858b80858443, type: 3}
-  - {fileID: -6922793697723135513, guid: 25d7ba685893aee49921858b80858443, type: 3}
+  - {fileID: 2100000, guid: 4ed2bccd3a39d1843a808a687bcc89b1, type: 2}
+  - {fileID: 2100000, guid: 85da13ee0176ca444bf64aa6a717a04d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,6 +170,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!135 &1732611858038748755
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -333,6 +337,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -357,6 +362,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1732611858599555684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,6 +568,7 @@ MonoBehaviour:
   syncInterval: 0.1
   thisPlayer: {fileID: 0}
   myName: 
+  GamePlayerNetId: 0
 --- !u!114 &8411315014955983531
 MonoBehaviour:
   m_ObjectHideFlags: 0
