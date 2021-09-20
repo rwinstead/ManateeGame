@@ -518,13 +518,13 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   clientAuthority: 1
-  sendInterval: 0.05
+  sendInterval: 0.018
   syncPosition: 1
   syncRotation: 1
   syncScale: 0
   interpolatePosition: 1
   interpolateRotation: 1
-  interpolateScale: 1
+  interpolateScale: 0
   bufferTimeMultiplier: 3
   bufferSizeLimit: 64
   catchupThreshold: 6
@@ -605,10 +605,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0.018
   target: {fileID: 1732611858038748754}
-  lerpVelocityAmount: 0.5
-  lerpPositionAmount: 0.5
+  lerpVelocityAmount: 0.25
+  lerpPositionAmount: 0.25
   clientAuthority: 1
 --- !u!114 &6086793574153721914
 MonoBehaviour:
@@ -642,7 +642,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   clientAuthority: 1
-  sendInterval: 0.05
+  sendInterval: 0.018
   syncPosition: 1
   syncRotation: 1
   syncScale: 0
